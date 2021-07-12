@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-import { DeeplinkAppButton, DeeplinkWebButton } from '../components';
+import { DeeplinkAppButton, DeeplinkWebButton, Emoji } from '../components';
 
 function WelcomeScreen({ navigation }) {
     return (
@@ -15,6 +15,7 @@ function WelcomeScreen({ navigation }) {
             <DeeplinkAppButton />
             <DeeplinkWebButton />
             <StatusBar style="auto" />
+            <Emoji mood="fear" />
         </View>
     )
 }
