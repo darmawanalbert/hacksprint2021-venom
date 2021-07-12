@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'restapi',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ DATABASES = {
         'NAME': 'admin',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': 'mongodb',
+                'host': 'localhost',
                 'port': 27017,
                 'username': 'admin',
                 'password': 'password',
@@ -99,6 +100,12 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
