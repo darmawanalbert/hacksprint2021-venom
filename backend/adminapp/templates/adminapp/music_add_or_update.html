@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/waistd.css' %}">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -56,15 +57,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="/admin/logout/" class="nav-link">
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
-        </ul>
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -96,7 +89,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Movies</h3>
+          <h3 class="card-title">Add Music</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -107,88 +100,65 @@
             </button>
           </div>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                    <th>Title</th>
-                    <th>Director Name</th>
-                    <th style="width: 40px">Published Year</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                  {% for movie in movies %}
-                  <tr>
-                    <td>
-                        {{ movie.title }}<br>
-                        <a href="/admin/movies/?id={{ movie.id }}&action=update">update</a> |
-                        <a href="/admin/movies/?id={{ movie.id }}&action=delete" style="color: red">delete</a>
-                    </td>
-                    <td>{{ movie.director_name }}</td>
-                    <td>{{ movie.published_year }}</td>
-                  </tr>
-                  {% endfor %}
-                  </tr>
-                </tbody>
-                </table>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <a href="/admin/movies/" class="btn bg-gradient-primary">Add</a>
-        </div>
-        <!-- /.card-footer-->
+        <form action="/admin/musics/" method="post"> {% csrf_token %}
+            <div class="card-body">
+                <input type="hidden" value="{{ action }}" name="action" />
+                <input type="hidden" value="{{ music.id }}" name="id" />
+                <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    <input type="text" class="form-control" id="inputTitle" name="title" value="{{ music.title }}" placeholder="e.g Never Gonna Give You Up">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="inputArtistName">Artist Name</label>
+                    <input type="text" class="form-control" id="inputArtistName" name="artist_name" value="{{ music.artist_name }}" placeholder="e.g Rick Astley">
+                </div>
+                <div class="form-group">
+                    <label for="inputAlbumName">Album Name</label>
+                    <input type="text" class="form-control" id="inputAlbumName" name="album_name" value="{{ music.album_name }}" placeholder="e.g PepeSadAlbum">
+                </div>
+                <div class="form-group">
+                    <label for="inputPublishedYear">Published Year</label>
+                    <input type="text" class="form-control" id="inputPublishedYear" name="published_year" value="{{ music.published_year }}" placeholder="e.g 1991">
+                </div>
+                <div class="form-group">
+                    <label for="inputDuration">Duration</label>
+                    <input type="text" class="form-control" id="inputDuration" name="duration" value="{{ music.duration }}" placeholder="e.g 3">
+                </div>
+                <div class="form-group">
+                    <label for="inputAlbumCover">Album Cover</label>
+                    <input type="text" class="form-control" id="inputAlbumCover" name="album_cover" value="{{ music.album_cover }}" placeholder="e.g https://yourcoverlink.com">
+                </div>
+                <div class="form-group">
+                    <label for="inputGenre">Genre</label>
+                    <input type="text" class="form-control" id="inputGenre" name="genre" value="{{ music.genre|join:',' }}" placeholder="e.g Rock, Pop">
+                    <p class="foot-note">Separated by comma (,)</p>
+                </div>
+                <div class="form-group">
+                    <label for="inputSpotifyLink">Spotify Link</label>
+                    <input type="text" class="form-control" id="inputSpotifyLink" name="spotify_link" value="{{ music.netflix_link }}" placeholder="e.g https://spotify.com/">
+                </div>
+                <div class="form-group">
+                    <label for="inputYoutubeLink">Youtube Link</label>
+                    <input type="text" class="form-control" id="inputYoutubeLink" name="youtube_link" value="{{ music.youtube_link }}" placeholder="e.g https://youtube.com/">
+                </div>
+                <div class="form-group">
+                    <label for="inputSoundCloudLink">SoundCloud Link</label>
+                    <input type="text" class="form-control" id="inputSoundCloudLink" name="soundcloud_link" value="{{ music.youtube_link }}" placeholder="e.g https://soundcloud.com/">
+                </div>
+                <!-- /.card-body -->
+              
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn bg-gradient-primary">Add</button>
+            </div>
+            <!-- /.card-footer-->
+        </form>
       </div>
       <!-- /.card -->
-
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Musics</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
-        
-        <div class="card-body">
-          <table class="table table-bordered">
-              <thead>
-                  <tr>
-                  <th>Title</th>
-                  <th>Singer</th>
-                  <th style="width: 40px">Published Year</th>
-                  </tr>
-              </thead>
-              <tbody>
-                
-                {% for music in musics %}
-                <tr>
-                  <td>
-                      {{ music.title }}<br>
-                      <a href="/admin/musics/?id={{ music.id }}&action=update">update</a> |
-                      <a href="/admin/musics/?id={{ music.id }}&action=delete" style="color: red">delete</a>
-                  </td>
-                  <td>{{ music.artist_name }}</td>
-                  <td>{{ music.published_year }}</td>
-                </tr>
-                {% endfor %}
-                </tr>
-              </tbody>
-              </table>
-      </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <a href="/admin/musics/" class="btn bg-gradient-primary">Add</a>
-        </div>
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
+      
+      
 
     </section>
     <!-- /.content -->

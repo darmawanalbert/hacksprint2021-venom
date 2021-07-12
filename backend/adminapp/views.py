@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.shortcuts import redirect
 from rest_framework import status
-from restapi.models import Movie
+from restapi.models import Movie, Music
+import uuid
 
 # Create your views here.
 def index(request):
@@ -65,10 +66,29 @@ def dashboard(request):
 
         if 'is_login' in request.session and request.session['is_login'] != None:
             movies = Movie.objects.values()
+            musics = Music.objects.values()
             context = {
-                'movies': movies
+                'movies': movies,
+                'musics': musics
             }
             return render(request,"adminapp/dashboard.html", context=context)
         else: 
             return redirect('/')
 
+def musicgenerator(request):
+    id = uuid.uuid4()
+    music = Music(
+        id = id,
+        title = "Never Gonna Give You Up",
+        artist_name = "Rick Astley",
+        album_name = "Whenever You Need Somebody",
+        published_year = 1987,
+        duration = 3,
+        album_cover = "http://link.com",
+        genre = "rick roll",
+        spotify_link = "http://link.com",
+        youtube_link = "http://link.com",
+        soundcloud_link = "http://link.com"
+        )
+    music.save()
+    return HttpResponse("RickRolled")
