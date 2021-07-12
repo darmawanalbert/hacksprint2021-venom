@@ -29,9 +29,12 @@ class Movie(models.Model):
     published_year = models.IntegerField(blank=True, default=0)
     duration = models.IntegerField(blank=True, default=0)
     movie_cover = models.TextField(blank=True, default='')
-    genre = models.JSONField()
+    genre = models.JSONField(default={})
     netflix_link = models.TextField(blank=True, default='')
     youtube_link = models.TextField(blank=True, default='')
+    poster_cover = models.TextField(blank=True, default='')
+    backdrop_cover = models.TextField(blank=True, default='')
+    moods = models.JSONField(default={})
 
     class Meta:
         ordering = ['created']

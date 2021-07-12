@@ -84,6 +84,7 @@ DATABASES = {
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
                 'host': '34.129.126.51',
+                # 'host' : 'localhost',
                 'port': 27017,
                 'username': 'admin',
                 'password': 'password',
@@ -101,13 +102,6 @@ DATABASES = {
             },
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -152,6 +146,13 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+## own config
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"), 
 ]
+
+TMDB_CONFIGS = {
+    "api_key": "f051a82470ff019fc4f8804131809ea4",
+    "base_url": "https://api.themoviedb.org/3"
+}
