@@ -21,7 +21,7 @@ class Users(APIView):
             user = User.objects.filter(username=username).values()
             response = {
                 'status' : status.HTTP_200_OK,
-                'data' : user
+                'data' : user[0]
             }
             return Response(response, status=status.HTTP_200_OK)
         else:
