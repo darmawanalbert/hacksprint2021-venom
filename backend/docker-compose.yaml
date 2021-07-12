@@ -6,7 +6,7 @@ services:
             dockerfile: ./backend.Dockerfile
         container_name: backend
         ports:
-            - "80:8080"
+            - "8080:8080"
         depends_on:
             - mongodb
     mongodb:
