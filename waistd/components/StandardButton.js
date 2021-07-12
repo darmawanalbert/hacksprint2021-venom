@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
     },
     buttonText: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'normal',
-        color: colors.white
+        color: colors.whiteSecondary
     }
 });
 

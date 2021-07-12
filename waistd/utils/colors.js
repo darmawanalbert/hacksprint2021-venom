@@ -15,6 +15,8 @@ export default colors = {
     // Blue
     blue: "#c7ecee",
     fear: "#c7ecee",
+    blueDark: "#30336b",
     // White
-    white: "#ffffff"
+    white: "#ffffff",
+    whiteSecondary: "#f3f3f3",
 };
