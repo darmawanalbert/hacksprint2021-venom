@@ -107,6 +107,8 @@
                 <div class="form-group">
                     <label for="inputTitle">Title</label>
                     <input type="text" class="form-control" id="inputTitle" name="title" value="{{ movie.title }}" placeholder="e.g My title movie">
+                    <br>
+                    <button type="button" id="inquiryTMDB" class="btn bg-gradient-primary" >Inquiry to TMDB</button>
                 </div>
                 <div class="form-group">
                     <label for="inputDirectorName">Director Name</label>
@@ -184,5 +186,19 @@
 <script src="{% static '/dist/js/adminlte.min.js'' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static '/dist/js/demo.js' %}"></script>
+<script>
+  $(function(){
+    alert("hello!")
+    $("#inquiryTMDB").click(function(){
+      fetch("http://localhost:8080/api/test")
+      .then((resp) => resp.json())
+      .then(function(response){
+        console.log(response)
+      }).catch(function(error){
+        console.log(error)
+      })
+    })
+  })
+</script>
 </body>
 </html>

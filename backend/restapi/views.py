@@ -11,6 +11,10 @@ from django.contrib.auth import authenticate
 
 import uuid
 
+class Test(APIView):
+    def get(self, request, format=None):
+        return Response({'message':'API is running'}, status=status.HTTP_200_OK)
+
 class Users(APIView):
     
     def post(self, request, format=None):

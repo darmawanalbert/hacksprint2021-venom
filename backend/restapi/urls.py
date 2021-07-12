@@ -6,6 +6,7 @@ urlpatterns = [
     path('movies/', views.Movies.as_view()),
     path('musics/', views.Musics.as_view()),
     path('users/', views.Users.as_view()),
+    path('test/',views.Test.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
