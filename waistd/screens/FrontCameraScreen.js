@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Image, Button } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
+import colors from '../utils/colors';
+import { StandardButton } from '../components';
 
 // Taken from https://docs.expo.io/versions/latest/sdk/camera/ with modifications
-function FrontCamera() {
+function FrontCameraScreen({ navigation }) {
     // PERMISSION: CAMERA
     const [hasPermission, setHasPermission] = useState(null);
     // imageData is in base64
@@ -39,8 +41,9 @@ function FrontCamera() {
     }
     if (imageData !== '') {
         return (
-            <View>
+            <View style={styles.imagePreviewContainer}>
                 <Image style={styles.imagePreview} source={{ uri: 'data:image/jpg;base64,' + imageData }} />
+                <StandardButton text="Continue" onPress={() => navigation.navigate('AudioRecord')} />
             </View>
         );
     }
@@ -63,15 +66,14 @@ function FrontCamera() {
                 }}
             >
                 <View style={styles.buttonContainer}>
-                    <Button
-                        title="Take Picture"
-                        onPress={takePicture}
-                    />
-                    {
-                        Array.isArray(faceDetected) && faceDetected.length
-                        ? <Text>Face detected!</Text>
-                        : <Text>Face NOT detected</Text>
-                    }
+                    <View style={styles.faceIndicator}>
+                        {
+                            Array.isArray(faceDetected) && faceDetected.length
+                            ? <Text style={styles.faceIndicatorText}>Face Detected</Text>
+                            : <Text style={styles.faceIndicatorText}>Face Not Detected</Text>
+                        }
+                    </View>
+                    <TouchableOpacity style={styles.takePictureButton} onPress={takePicture} />
                 </View>
             </Camera>
         </View>
@@ -85,17 +87,40 @@ const styles = StyleSheet.create({
     camera: {
         flex: 1,
     },
+    imagePreviewContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: "flex-start"
+    },
     imagePreview: {
         width: 512,
         height: 512,
+        marginBottom: 16
     },
     buttonContainer: {
         flex: 1,
         backgroundColor: 'transparent',
-        flexDirection: 'row',
+        flexDirection: 'column',
         margin: 20,
-        justifyContent: 'center'
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    takePictureButton: {
+        backgroundColor: colors.white,
+        borderRadius: 24,
+        width: 48,
+        height: 48
+    },
+    faceIndicator: {
+        paddingVertical: 2,
+        paddingHorizontal: 4,
+        borderRadius: 12,
+        opacity: 0.3,
+        backgroundColor: 'black'
+    },
+    faceIndicatorText: {
+        color: colors.white
     }
 });
 
-export default FrontCamera;
+export default FrontCameraScreen;

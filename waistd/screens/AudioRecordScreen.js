@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { Audio } from 'expo-av';
 
 // Taken from https://docs.expo.io/versions/latest/sdk/audio/ with modifications
-function AudioRecorder() {
+function AudioRecordScreen() {
     const [recording, setRecording] = useState();
     const [sound, setSound] = useState();
     const [uri, setUri] = useState('');
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AudioRecorder;
+export default AudioRecordScreen;

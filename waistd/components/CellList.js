@@ -19,7 +19,7 @@ function CellItem({ text, iconName, onPress }) {
 
 function CellList({ navigation }) {
     return (
-        <View>
+        <View style={styles.cellList}>
             <CellItem text="Music" iconName="musical-notes" onPress={() => navigation.navigate('Recommendation')}/>
             <CellItem text="Movies" iconName="film" onPress={() => navigation.navigate('Recommendation')} />
         </View>
@@ -27,13 +27,16 @@ function CellList({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    cellList: {
+        marginBottom: 8,
+    },
     container: {
         padding: 12,
         borderRadius: 12,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginVertical: 8,
+        marginVertical: 4,
         backgroundColor: colors.blueDark,
     },
     textContainer: {

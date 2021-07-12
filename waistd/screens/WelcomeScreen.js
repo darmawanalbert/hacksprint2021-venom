@@ -15,7 +15,7 @@ function WelcomeScreen({ navigation }) {
             <Image source={logo} style={{ width: imageWidth, height: imageHeight }} />
             <StandardButton
                 text="Detect Mood"
-                onPress={() => navigation.navigate('Mood')}
+                onPress={() => navigation.navigate('FrontCamera')}
             />
         </View>
     )
