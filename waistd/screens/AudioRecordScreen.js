@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
+import { Ionicons } from '@expo/vector-icons';
+import colors from '../utils/colors';
 
 // Taken from https://docs.expo.io/versions/latest/sdk/audio/ with modifications
 function AudioRecordScreen() {
@@ -52,15 +54,21 @@ function AudioRecordScreen() {
     return (
         <View style={styles.container}>
             <Text>Audio Recorder</Text>
-            <Button
-                title={recording ? 'Stop Record' : 'Start Record'}
-                onPress={recording ? stopRecording : startRecording}
-            />
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={styles.recordButton}
+                    onPress={recording ? stopRecording : startRecording}
+                >
+                    <Ionicons name={recording ? "mic-off" : "mic"} size={32} color={colors.whiteSecondary} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.playButton}
+                    onPress={playSound}
+                >
+                    <Ionicons name="play-outline" size={32} color={colors.primary} />
+                </TouchableOpacity>
+            </View>
             <Text>{`Recording stored at: ${uri}`}</Text>
-            <Button
-                title="Play"
-                onPress={playSound}
-            />
         </View>
     )
 }
@@ -70,6 +78,30 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    recordButton: {
+        borderRadius: 24,
+        width: 48,
+        height: 48,
+        backgroundColor: colors.primary,
+        margin: 8,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    playButton: {
+        borderRadius: 24,
+        width: 48,
+        height: 48,
+        borderWidth: 2,
+        borderColor: colors.primary,
+        margin: 8,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
