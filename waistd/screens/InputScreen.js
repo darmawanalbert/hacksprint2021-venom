@@ -2,12 +2,13 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { FrontCamera } from '../components';
+import { FrontCamera, AudioRecorder } from '../components';
 
 function InputScreen() {
     return (
         <View style={styles.container}>
-            <FrontCamera />
+            {/* <FrontCamera /> */}
+            <AudioRecorder />
             <StatusBar style="auto" />
         </View>
     )

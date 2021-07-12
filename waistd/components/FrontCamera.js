@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, Button } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
 
+// Taken from https://docs.expo.io/versions/latest/sdk/camera/ with modifications
 function FrontCamera() {
     // PERMISSION: CAMERA
     const [hasPermission, setHasPermission] = useState(null);
