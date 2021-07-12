@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { FrontCamera, AudioRecorder } from '../components';
+import colors from '../utils/colors';
 
 function InputScreen() {
     return (
@@ -18,7 +19,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: colors.white
     }
 });
 
