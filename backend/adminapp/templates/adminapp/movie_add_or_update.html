@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/waistd.css' %}">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -88,7 +89,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Movies</h3>
+          <h3 class="card-title">Add Movies</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -99,116 +100,61 @@
             </button>
           </div>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                    <th>Title</th>
-                    <th>Director Name</th>
-                    <th style="width: 40px">Published Year</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                  {% for movie in movies %}
-                  <tr>
-                    <td>
-                        {{ movie.title }}<br>
-                        <a href="/admin/movies/?id={{ movie.id }}&action=update">update</a> |
-                        <a href="/admin/movies/?id={{ movie.id }}&action=delete" style="color: red">delete</a>
-                    </td>
-                    <td>{{ movie.director_name }}</td>
-                    <td>{{ movie.published_year }}</td>
-                  </tr>
-                  {% endfor %}
-                  </tr>
-                </tbody>
-                </table>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <a href="/admin/movies/" class="btn bg-gradient-primary">Add</a>
-        </div>
-        <!-- /.card-footer-->
+        <form action="/admin/movies/" method="post"> {% csrf_token %}
+            <div class="card-body">
+                <input type="hidden" value="{{ action }}" name="action" />
+                <input type="hidden" value="{{ movie.id }}" name="id" />
+                <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    <input type="text" class="form-control" id="inputTitle" name="title" value="{{ movie.title }}" placeholder="e.g My title movie">
+                </div>
+                <div class="form-group">
+                    <label for="inputDirectorName">Director Name</label>
+                    <input type="text" class="form-control" id="inputDirectorName" name="director_name" value="{{ movie.director_name }}" placeholder="e.g Mr Director man">
+                </div>
+                <div class="form-group">
+                    <label for="inputCast">Cast</label>
+                    <input type="text" class="form-control" id="inputCast" name="cast" value="{{ movie.cast|join:',' }}" placeholder="e.g person1, person2">
+                    <p class="foot-note">Separated by comma (,)</p>
+                </div>
+                <div class="form-group">
+                    <label for="inputPublishedYear">Published Year</label>
+                    <input type="text" class="form-control" id="inputPublishedYear" name="published_year" value="{{ movie.published_year }}" placeholder="e.g 1991">
+                </div>
+                <div class="form-group">
+                    <label for="inputDuration">Duration</label>
+                    <input type="text" class="form-control" id="inputDuration" name="duration" value="{{ movie.duration }}" placeholder="e.g 120">
+                </div>
+                <div class="form-group">
+                    <label for="inputMovieCover">Movie Cover</label>
+                    <input type="text" class="form-control" id="inputMovieCover" name="movie_cover" value="{{ movie.movie_cover }}" placeholder="e.g https://yourcoverlink.com">
+                </div>
+                <div class="form-group">
+                    <label for="inputGenre">Genre</label>
+                    <input type="text" class="form-control" id="inputGenre" name="genre" value="{{ movie.genre|join:',' }}" placeholder="e.g Comedy, Drama">
+                    <p class="foot-note">Separated by comma (,)</p>
+                </div>
+                <div class="form-group">
+                    <label for="inputNetflixLink">Netflix Link</label>
+                    <input type="text" class="form-control" id="inputNetflixLink" name="netflix_link" value="{{ movie.netflix_link }}" placeholder="e.g https://netflix.com/">
+                </div>
+                <div class="form-group">
+                    <label for="inputYoutubeLink">Youtube Link</label>
+                    <input type="text" class="form-control" id="inputYoutubeLink" name="youtube_link" value="{{ movie.youtube_link }}" placeholder="e.g https://youtube.com/">
+                </div>
+                <!-- /.card-body -->
+              
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn bg-gradient-primary">Add</button>
+            </div>
+            <!-- /.card-footer-->
+        </form>
       </div>
       <!-- /.card -->
-
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Musics</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="card-body">
-          <table class="table table-bordered">
-            <thead>
-                <tr>
-                <th style="width: 10px">#</th>
-                <th>Task</th>
-                <th>Progress</th>
-                <th style="width: 40px">Label</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td>1.</td>
-                <td>Update software</td>
-                <td>
-                    <div class="progress progress-xs">
-                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-danger">55%</span></td>
-                </tr>
-                <tr>
-                <td>2.</td>
-                <td>Clean database</td>
-                <td>
-                    <div class="progress progress-xs">
-                    <div class="progress-bar bg-warning" style="width: 70%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-warning">70%</span></td>
-                </tr>
-                <tr>
-                <td>3.</td>
-                <td>Cron job running</td>
-                <td>
-                    <div class="progress progress-xs progress-striped active">
-                    <div class="progress-bar bg-primary" style="width: 30%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-primary">30%</span></td>
-                </tr>
-                <tr>
-                <td>4.</td>
-                <td>Fix and squish bugs</td>
-                <td>
-                    <div class="progress progress-xs progress-striped active">
-                    <div class="progress-bar bg-success" style="width: 90%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-success">90%</span></td>
-                </tr>
-            </tbody>
-            </table>
-            
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <a href="/admin/musics/" class="btn bg-gradient-primary">Add</a>
-        </div>
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
+      
+      
 
     </section>
     <!-- /.content -->
