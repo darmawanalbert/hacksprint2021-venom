@@ -51,11 +51,24 @@ def login(request):
         response = redirect('/')
     return response
 
+def logout(request):
+
+    print("is_login",request.session['is_login'], " user_id: ", request.session['user_id'])
+
+    del request.session['is_login']
+    del request.session['user_id']
+    return redirect('/')
+
+
 def dashboard(request):
     if request.method == 'GET':
-        movies = Movie.objects.values()
-        context = {
-            'movies': movies
-        }
-        return render(request,"adminapp/dashboard.html", context=context)
+
+        if 'is_login' in request.session and request.session['is_login'] != None:
+            movies = Movie.objects.values()
+            context = {
+                'movies': movies
+            }
+            return render(request,"adminapp/dashboard.html", context=context)
+        else: 
+            return redirect('/')
 
