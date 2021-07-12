@@ -49,7 +49,8 @@ function Emoji({ size = 100, mood }) {
             style={{
                 transform: [
                     { translateY: yTranslation}
-                ]
+                ],
+                paddingBottom: 24
             }}
         >
             <Planet size={size} mood={moodString} color={colors[mood]} />
