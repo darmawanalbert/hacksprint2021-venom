@@ -1,14 +1,20 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { DotIndicator } from 'react-native-indicators';
+
 import colors from '../utils/colors';
 
-function StandardButton({ text, onPress }) {
+function StandardButton({ text, onPress, isLoading = false }) {
     return (
         <TouchableOpacity
             style={styles.buttonContainer}
             onPress={onPress}
+            disabled={isLoading}
         >
-            <Text style={styles.buttonText}>{text}</Text>
+            {isLoading
+                ? <DotIndicator size={12} count={3} color={colors.whiteSecondary} style={styles.indicator} />
+                : <Text style={styles.buttonText}>{text}</Text>
+            }
         </TouchableOpacity>
     );
 }
@@ -19,12 +25,17 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         paddingVertical: 12,
         paddingHorizontal: 24,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     buttonText: {
         fontSize: 16,
         fontWeight: 'normal',
         color: colors.whiteSecondary,
         textAlign: 'center'
+    },
+    indicator: {
+        flex: 0,
     }
 });
 
