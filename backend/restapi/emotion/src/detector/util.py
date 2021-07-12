@@ -1,7 +1,9 @@
 import os
 import subprocess
+import base64
 from pydub import AudioSegment, effects
 from scipy.signal.filter_design import normalize  
+
 
 TARGET_LOUDNESS = -30 #db
 
@@ -26,3 +28,7 @@ def convert_normalize(file_name, output_name, remove=False):
     normalized = normalized.set_channels(1)
     normalized = normalized.set_frame_rate(16000)
     normalized.export(output_name, format="wav")
+
+def convert_base64_to_file(base_string, filename):
+    with open(filename, "wb") as fh:
+        fh.write(base64.decodebytes(base_string))
