@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q&g4%oz2nwazxdudh9utb4w8s6^d-#&ohrio7**z(yfy$(uz+5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,26 @@ WSGI_APPLICATION = 'waistedbackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'admin',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb',
+                'port': 27017,
+                'username': 'admin',
+                'password': 'password',
+                'authSource': 'admin',
+                'authMechanism': 'SCRAM-SHA-1'
+            },
+            'LOGGING': {
+                'version': 1,
+                'loggers': {
+                    'djongo': {
+                        'level': 'DEBUG',
+                        'propagate': False,                        
+                    }
+                },
+            },
     }
 }
 
