@@ -4,7 +4,7 @@ import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
-import { StandardButton } from '../components';
+import { StandardButton, AudioRecordIndicator } from '../components';
 import colors from '../utils/colors';
 
 // Taken from https://docs.expo.io/versions/latest/sdk/audio/ with modifications
@@ -96,6 +96,7 @@ function AudioRecordScreen({ navigation }) {
                     <Ionicons name="play-outline" size={36} color={colors.primary} />
                 </TouchableOpacity>
             </View>
+            <AudioRecordIndicator />
             {
                 uri !== '' &&
                 <StandardButton
