@@ -89,7 +89,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Add Music</h3>
+          <h3 class="card-title" style = "text-transform:capitalize;">{{action}} Music</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -147,11 +147,34 @@
                     <input type="text" class="form-control" id="inputSoundCloudLink" name="soundcloud_link" value="{{ music.youtube_link }}" placeholder="e.g https://soundcloud.com/">
                 </div>
                 <!-- /.card-body -->
-              
+                <div class="form-check">
+                    <table width="60%">
+                      <tr>
+                        <td>
+                          <input type="checkbox" class="form-check-input" name="anger" {% if music.moods.anger == 'on'%}checked{% endif %} id="inputAnger">
+                          <label class="form-check-label" for="inputAnger">Anger</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-check-input" name="fear" {% if music.moods.fear == 'on'%}checked{% endif %} id="inputFear">
+                            <label class="form-check-label" for="inputFear">Fear</label>
+                          </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="checkbox" class="form-check-input" name="happiness" {% if music.moods.happiness == 'on'%}checked{% endif %} id="inputHapiness">
+                          <label class="form-check-label" for="inputHapiness">Happiness</label>
+                        </td>
+                        <td>
+                          <input type="checkbox" class="form-check-input" name="sadness" {% if music.moods.sadness == 'on'%}checked{% endif %} id="inputSadness">
+                          <label class="form-check-label" for="inputSadness">Sadness</label>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn bg-gradient-primary">Add</button>
+                <button type="submit" class="btn bg-gradient-primary">{{ action }}</button>
             </div>
             <!-- /.card-footer-->
         </form>

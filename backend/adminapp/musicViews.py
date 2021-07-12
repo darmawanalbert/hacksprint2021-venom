@@ -35,8 +35,22 @@ def index(request):
             return render(request,"adminapp/music_add_or_update.html", context=context)
 
     elif request.method == 'POST':
+        
+        anger = request.POST.get('anger','off')
+        fear = request.POST.get('fear','off')
+        happiness = request.POST.get('happiness','off')
+        sadness = request.POST.get('sadness','off')
+
         genre_str = request.POST.get("genre","")
+        
         genre = split_by_comma(genre_str)
+        
+        moods = {
+            'anger' : anger,
+            'fear' : fear,
+            'happiness' : happiness,
+            'sadness':  sadness
+        }
 
         if request.POST.get("action","") == "add":
             id = uuid.uuid4()
@@ -52,6 +66,7 @@ def index(request):
                 spotify_link = request.POST.get("spotify_link",""),
                 youtube_link = request.POST.get("youtube_link",""),
                 soundcloud_link = request.POST.get("soundcloud_link",""),
+                moods = moods
                 )
             music.save()
             return redirect('/admin/dashboard')
@@ -59,16 +74,17 @@ def index(request):
         elif request.POST.get("action","") == "update":
             id = request.POST.get("id", None)
             music = Music.objects.get(id=id)
-            music.title = request.POST.get("title",""),
-            music.artist_name = request.POST.get("artist_name",""),
-            music.album_name = request.POST.get("album_name",""),
-            music.published_year = request.POST.get("published_year",0),
-            music.duration = request.POST.get("duration",0),
-            music.album_cover = request.POST.get("album_cover",""),
-            music.genre = genre,
-            music.spotify_link = request.POST.get("spotify_link",""),
-            music.youtube_link = request.POST.get("youtube_link",""),
-            music.soundcloud_link = request.POST.get("soundcloud_link",""),
+            music.title = request.POST.get("title","")
+            music.artist_name = request.POST.get("artist_name","")
+            music.album_name = request.POST.get("album_name","")
+            music.published_year = request.POST.get("published_year",0)
+            music.duration = request.POST.get("duration",0)
+            music.album_cover = request.POST.get("album_cover","")
+            music.genre = genre
+            music.spotify_link = request.POST.get("spotify_link","")
+            music.youtube_link = request.POST.get("youtube_link","")
+            music.soundcloud_link = request.POST.get("soundcloud_link","")
+            music.moods = moods
             music.save()
             return redirect('/admin/dashboard')
         
