@@ -10,8 +10,8 @@ function App() {
     return (
         <NavigationContainer>
             <MainStack.Navigator initialRouteName="Welcome">
-                <MainStack.Screen name="Welcome" component={WelcomeScreen} />
-                <MainStack.Screen name="Input" component={InputScreen} />
+                <MainStack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+                <MainStack.Screen name="Input" component={InputScreen} options={{ headerShown: false }} />
                 <MainStack.Screen name="Recommendation" component={RecommendationScreen} />
             </MainStack.Navigator>
         </NavigationContainer>

@@ -1,6 +1,8 @@
 // Reference: https://flatuicolors.com/palette/au
 
 export default colors = {
+    primary: "#eb4d4b",
+    secondary: "#130f40",
     // Red
     red: "#ff7979",
     angry: "#ff7979",
@@ -12,5 +14,7 @@ export default colors = {
     sad: "#badc58",
     // Blue
     blue: "#c7ecee",
-    fear: "#c7ecee"
+    fear: "#c7ecee",
+    // White
+    white: "#ffffff"
 };
