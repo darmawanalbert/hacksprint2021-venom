@@ -89,14 +89,16 @@ function AudioRecordScreen({ navigation }) {
                 >
                     <Ionicons name={recording ? "mic-off" : "mic"} size={36} color={colors.whiteSecondary} />
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.playButton}
-                    onPress={playSound}
-                >
-                    <Ionicons name="play-outline" size={36} color={colors.primary} />
-                </TouchableOpacity>
+                { typeof recording !== 'undefined' && <AudioRecordIndicator /> }
+                { typeof recording === 'undefined' && uri !== '' && (
+                    <TouchableOpacity
+                        style={styles.playButton}
+                        onPress={playSound}
+                    >
+                        <Ionicons name="play-outline" size={36} color={colors.primary} />
+                    </TouchableOpacity>
+                )}
             </View>
-            <AudioRecordIndicator />
             {
                 uri !== '' &&
                 <StandardButton
