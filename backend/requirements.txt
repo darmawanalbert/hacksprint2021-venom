@@ -4,3 +4,8 @@ markdown
 django-filter
 djongo
 requests
+soundfile
+numpy
+librosa
+sklearn
+pydub
