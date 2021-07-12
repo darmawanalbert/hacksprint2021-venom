@@ -107,9 +107,9 @@ const styles = StyleSheet.create({
     },
     takePictureButton: {
         backgroundColor: colors.white,
-        borderRadius: 24,
-        width: 48,
-        height: 48
+        borderRadius: 28,
+        width: 56,
+        height: 56
     },
     faceIndicator: {
         paddingVertical: 2,

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
+import * as FileSystem from 'expo-file-system';
+import axios from 'axios';
+import { StandardButton } from '../components';
 import colors from '../utils/colors';
 
 // Taken from https://docs.expo.io/versions/latest/sdk/audio/ with modifications
-function AudioRecordScreen() {
+function AudioRecordScreen({ navigation }) {
     const [recording, setRecording] = useState();
     const [sound, setSound] = useState();
     const [uri, setUri] = useState('');
@@ -51,24 +54,55 @@ function AudioRecordScreen() {
         console.log('Recording stopped at', savedUri);
     }
 
+    async function postFiles() {
+        const audioString = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+        const payload = {
+            platform: Platform.OS === 'ios' ? 'ios' : 'android',
+            audioData: audioString,
+        }
+
+        // POST method via axios
+        navigation.navigate('Mood');
+    }
+
     return (
         <View style={styles.container}>
-            <Text>Audio Recorder</Text>
+            {
+                uri !== ''
+                ? (
+                    <View>
+                        <Text style={styles.subheading}>An audio file has been stored!</Text>
+                        <Text style={styles.microText}>Press the Analyse Mood button to continue</Text>
+                    </View>
+                )
+                : (
+                    <View>
+                        <Text style={styles.subheading}>No audio file stored yet!</Text>
+                        <Text style={styles.microText}>Press the record button to get started</Text>
+                    </View>
+                )
+            }
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.recordButton}
                     onPress={recording ? stopRecording : startRecording}
                 >
-                    <Ionicons name={recording ? "mic-off" : "mic"} size={32} color={colors.whiteSecondary} />
+                    <Ionicons name={recording ? "mic-off" : "mic"} size={36} color={colors.whiteSecondary} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.playButton}
                     onPress={playSound}
                 >
-                    <Ionicons name="play-outline" size={32} color={colors.primary} />
+                    <Ionicons name="play-outline" size={36} color={colors.primary} />
                 </TouchableOpacity>
             </View>
-            <Text>{`Recording stored at: ${uri}`}</Text>
+            {
+                uri !== '' &&
+                <StandardButton
+                    text="Analyse Mood"
+                    onPress={postFiles}
+                />
+            }
         </View>
     )
 }
@@ -82,26 +116,39 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 16
     },
     recordButton: {
-        borderRadius: 24,
-        width: 48,
-        height: 48,
+        borderRadius: 28,
+        width: 56,
+        height: 56,
         backgroundColor: colors.primary,
         margin: 8,
         justifyContent: 'center',
         alignItems: 'center'
     },
     playButton: {
-        borderRadius: 24,
-        width: 48,
-        height: 48,
+        borderRadius: 28,
+        width: 56,
+        height: 56,
         borderWidth: 2,
         borderColor: colors.primary,
         margin: 8,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    subheading: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.secondary
+    },
+    microText: {
+        textAlign: 'center',
+        fontSize: 14,
+        fontWeight: '400',
+        color: colors.secondary,
     }
 });
 
