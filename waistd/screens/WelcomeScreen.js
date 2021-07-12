@@ -9,8 +9,8 @@ function WelcomeScreen({ navigation }) {
         <View style={styles.container}>
             <Text>Welcome Screen</Text>
             <Button
-                title="Go to Input Screen"
-                onPress={() => navigation.navigate('Input')}
+                title="Go to Recommendation Screen"
+                onPress={() => navigation.navigate('Recommendation')}
             />
             <DeeplinkAppButton />
             <DeeplinkWebButton />
