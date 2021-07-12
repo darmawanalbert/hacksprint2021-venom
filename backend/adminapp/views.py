@@ -33,7 +33,7 @@ def index(request):
         return response
 
 def login(request):
-    request = None
+    response = None
     if request.method == 'GET':
         response = redirect('')
     elif request.method == 'POST':

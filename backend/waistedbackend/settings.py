@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'admin',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': 'localhost',
+                'host': '34.129.126.51',
                 'port': 27017,
                 'username': 'admin',
                 'password': 'password',
