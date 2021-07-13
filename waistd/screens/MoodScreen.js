@@ -13,6 +13,10 @@ function MoodScreen({ navigation }) {
                 <Text style={styles.microText}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet turpis nec magna elementum ultrices quis sed elit. Donec in mollis sem. Vivamus fermentum tellus vitae lacus luctus, sit amet iaculis diam fermentum. Sed bibendum mauris a ullamcorper vehicula. Nam tincidunt, augue nec facilisis elementum, leo diam rhoncus nunc, blandit cursus quam risus ac libero. Vivamus semper urna nec iaculis lacinia. Curabitur non orci consequat, tempor sapien in, sagittis sapien.
                 </Text>
+                <StandardButton
+                    text="Set Preferences"
+                    onPress={() => navigation.navigate('Preference')}
+                />
             </View>
             <View>
                 <Text style={styles.heading}>Recommendations</Text>

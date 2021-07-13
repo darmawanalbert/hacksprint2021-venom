@@ -43,7 +43,7 @@ function FrontCameraScreen({ navigation }) {
         return (
             <View style={styles.imagePreviewContainer}>
                 <Image style={styles.imagePreview} source={{ uri: 'data:image/jpg;base64,' + imageData }} />
-                <StandardButton text="Continue" onPress={() => navigation.navigate('AudioRecord')} />
+                <StandardButton text="Continue" onPress={() => navigation.navigate('AudioRecord', { imageData: imageData})} />
             </View>
         );
     }
