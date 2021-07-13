@@ -37,15 +37,40 @@ class Users(APIView):
 
 # Create your views here.
 class Movies(APIView):
+
+    def get_query_number(self, number):
+        try:
+            number = int(number)
+        except Exception:
+            number = 1
+        
+        return number
+
     def get(self, request, format=None):
 
         id = request.GET.get('id', None)
+        page = self.get_query_number(request.GET.get('page', None))
 
+        offset = 5
+        bottom_limit = page * offset - offset
+        if bottom_limit < 0:
+            bottom_limit = 0
+
+        upper_limit = bottom_limit + 5
+        
         if id == None:
-            movies = Movie.objects.values()
+            movies = Movie.objects.values().order_by('-created')
+
+            previous_page = page - 1
+            if previous_page < 0:
+                previous_page = 0
+
             response = {
                 'status' : status.HTTP_200_OK,
-                'data' : movies
+                'count_all': len(movies),
+                'next_page': '?=page' + str(page + 1),
+                'previous_page' : '?=page' + str(previous_page),
+                'data' : movies[bottom_limit:upper_limit]
             }
             return Response(response, status=status.HTTP_200_OK)
         else:

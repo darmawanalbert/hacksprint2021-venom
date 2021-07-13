@@ -54,6 +54,12 @@ class TMDBView(APIView):
         str_split = release_date.split("-")
         return str_split[0]
 
+    def get_fullpath(self, image_str):
+        if image_str != None:
+            return 'https://image.tmdb.org/t/p/w370_and_h556_multi_faces' + str(image_str)
+        else:
+            return None
+
     def get(self, request, format=None):
         api_key = settings.TMDB_CONFIGS['api_key']
 
@@ -66,8 +72,8 @@ class TMDBView(APIView):
         if(len(tmdb_response['results']) > 0):
             response['movie'] = tmdb_response['results'][0]
             movie_detail = self.get_detail(response['movie']['id'], { 'api_key' : api_key })
-            response['movie']['backdrop_fullpath'] = 'https://image.tmdb.org/t/p/w370_and_h556_multi_faces' + response['movie']['backdrop_path']
-            response['movie']['poster_fullpath'] = 'https://image.tmdb.org/t/p/w370_and_h556_multi_faces' + response['movie']['poster_path']
+            response['movie']['backdrop_fullpath'] = self.get_fullpath(response['movie']['backdrop_path'])
+            response['movie']['poster_fullpath'] = self.get_fullpath(response['movie']['poster_path'])
             response['movie']['published_year'] = self.get_published_year(response['movie']['release_date'])
             genre_map = self.genre_map(response['movie']['genre_ids'], genres)
             response['movie']['runtime'] = movie_detail['runtime']
@@ -77,6 +83,7 @@ class TMDBView(APIView):
             return Response(response, status=status.HTTP_200_OK)
         else:
             response['movie'] = {}
+            response['message'] = "You waistd your time. Re-type the title bro. :)"
             response['status'] = status.HTTP_404_NOT_FOUND
             return Response(response, status=status.HTTP_404_NOT_FOUND)
 
