@@ -20,8 +20,8 @@ function CellItem({ text, iconName, onPress }) {
 function CellList({ navigation }) {
     return (
         <View style={styles.cellList}>
-            <CellItem text="Music" iconName="musical-notes" onPress={() => navigation.navigate('Recommendation')}/>
-            <CellItem text="Movies" iconName="film" onPress={() => navigation.navigate('Recommendation')} />
+            <CellItem text="Music" iconName="musical-notes" onPress={() => navigation.navigate('Movie')}/>
+            <CellItem text="Movie" iconName="film" onPress={() => navigation.navigate('Movie')} />
         </View>
     )
 }

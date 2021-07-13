@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+import colors from '../utils/colors';
+
 function LinkButton({ text = '', onPress, style = {} }) {
     return (
         <TouchableOpacity style={[styles.container, {...style}]} onPress={onPress}>

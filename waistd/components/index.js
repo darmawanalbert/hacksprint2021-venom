@@ -1,4 +1,3 @@
-export { default as RecommendationIndicator } from './RecommendationIndicator';
 export { default as DeeplinkAppButton } from './DeeplinkAppButton';
 export { default as DeeplinkWebButton } from './DeeplinkWebButton';
 export { default as Carousel } from './Carousel/Carousel';
