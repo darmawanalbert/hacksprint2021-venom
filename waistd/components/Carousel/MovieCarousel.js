@@ -4,7 +4,6 @@
  */
  import * as React from 'react';
  import {
-     StatusBar,
      Text,
      View,
      StyleSheet,
@@ -15,7 +14,7 @@
      TouchableOpacity,
      Platform,
  } from 'react-native';
- 
+
  const { width, height } = Dimensions.get('window');
  import { getMovies } from './api';
  import Genres from './Genres';
@@ -84,8 +83,8 @@
          </View>
      );
  };
- 
- export default function Carousel() {
+
+ export default function MovieCarousel() {
      const [movies, setMovies] = React.useState([]);
      const scrollX = React.useRef(new Animated.Value(0)).current;
      React.useEffect(() => {
@@ -95,20 +94,19 @@
              // [empty_item, ...movies, empty_item]
              setMovies([{ key: 'empty-left' }, ...movies, { key: 'empty-right' }]);
          };
- 
+
          if (movies.length === 0) {
              fetchData(movies);
          }
      }, [movies]);
- 
+
      if (movies.length === 0) {
          return <Loading />;
      }
- 
+
     return (
          <View style={styles.container}>
          <Backdrop movies={movies} scrollX={scrollX} />
-         <StatusBar hidden />
          <Animated.FlatList
              showsHorizontalScrollIndicator={false}
              data={movies}

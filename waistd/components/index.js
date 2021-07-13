@@ -1,6 +1,6 @@
 export { default as DeeplinkAppButton } from './DeeplinkAppButton';
 export { default as DeeplinkWebButton } from './DeeplinkWebButton';
-export { default as Carousel } from './Carousel/Carousel';
+export { default as MovieCarousel } from './Carousel/MovieCarousel';
 export { default as Emoji } from './Emoji';
 export { default as StandardButton } from './StandardButton';
 export { default as CellList } from './CellList';
