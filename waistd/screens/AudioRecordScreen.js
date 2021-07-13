@@ -9,9 +9,19 @@ import colors from '../utils/colors';
 
 // Taken from https://docs.expo.io/versions/latest/sdk/audio/ with modifications
 function AudioRecordScreen({ navigation }) {
+    const questionList = [
+        'How are you feeling today?',
+        'How are you?',
+        'How you doin\'?',
+        'How do you feel?'
+    ];
+    const questionIndex = Math.floor(Math.random() * questionList.length);
+    const questionString = questionList[questionIndex];
+
     const [recording, setRecording] = useState();
     const [sound, setSound] = useState();
     const [uri, setUri] = useState('');
+    const [question, setQuestion] = useState(questionString);
 
     async function playSound() {
         const { sound } = await Audio.Sound.createAsync(
@@ -71,14 +81,16 @@ function AudioRecordScreen({ navigation }) {
                 uri !== ''
                 ? (
                     <View>
-                        <Text style={styles.subheading}>An audio file has been stored!</Text>
-                        <Text style={styles.microText}>Press the Analyse Mood button to continue</Text>
+                        <Text style={styles.heading}>{`"${question}"`}</Text>
+                        <Text style={styles.microText}>Press the Analyse Mood button to continue.</Text>
+                        <Text style={styles.microText}>An audio file has been recorded</Text>
                     </View>
                 )
                 : (
                     <View>
-                        <Text style={styles.subheading}>No audio file stored yet!</Text>
-                        <Text style={styles.microText}>Press the record button to get started</Text>
+                        <Text style={styles.heading}>{`"${question}"`}</Text>
+                        <Text style={styles.microText}>Press the record button to start answering.</Text>
+                        <Text style={styles.microText}>No audio recorded yet!</Text>
                     </View>
                 )
             }
@@ -141,9 +153,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    subheading: {
+    heading: {
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
         color: colors.secondary
     },
