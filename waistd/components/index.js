@@ -8,3 +8,4 @@ export { default as CellList } from './CellList';
 export { default as AudioRecordIndicator } from './AudioRecordIndicator';
 export { default as LinkButton } from './LinkButton';
 export { default as CheckboxList } from './CheckboxList';
+export { default as CloseButton } from './CloseButton';
