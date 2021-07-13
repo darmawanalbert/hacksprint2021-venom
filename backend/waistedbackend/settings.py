@@ -123,3 +123,11 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Azure key
+KEY_COG = "e43e3cc65eb7459abc05b13e6d1b15ec"
+ENDPOINT_COG = "https://venom-cognitive.cognitiveservices.azure.com/"
+REGION_COG = 'australiaeast'
+
+# Paralleldots key
+KEY_PARALLELDOTS = "JLWHsjG95rh3z34b0H5w5yGxMCoZBHHdLn6YL5Rth1Q"
