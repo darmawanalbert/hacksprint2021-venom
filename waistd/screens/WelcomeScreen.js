@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, StyleSheet, Button, Image, Dimensions } from 'react-native';
-import { StandardButton } from '../components';
+import { View, StyleSheet, Image, Dimensions } from 'react-native';
+import { StandardButton, LinkButton } from '../components';
 import logo from '../assets/full-logo.png';
 import colors from '../utils/colors';
 
@@ -13,7 +13,7 @@ function WelcomeScreen({ navigation }) {
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Image source={logo} style={{ width: imageWidth, height: imageHeight }} />
-            <StandardButton
+            <LinkButton
                 text="About page"
                 onPress={() => navigation.navigate('About')}
             />
