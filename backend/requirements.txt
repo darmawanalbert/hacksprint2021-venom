@@ -11,3 +11,5 @@ sklearn
 pydub
 azure-cognitiveservices-speech
 azure-cognitiveservices-vision-face
+Pillow
+paralleldots
