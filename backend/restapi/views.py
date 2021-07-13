@@ -311,7 +311,7 @@ class Mood(APIView):
             
             # print('audio:', audio_base_data)
 
-            if platform == None:
+            if platform == None or platform not in ['android','ios']:
                 return self.bad_request_message(f'platform invalid')
             elif image_base_data == None:
                 return self.bad_request_message(f'image_base_data invalid')
