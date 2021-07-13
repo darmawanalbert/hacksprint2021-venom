@@ -254,13 +254,13 @@ class Mood(APIView):
     def post(self, request, format=None):
         try:
 
-            print('request:', json.dumps(request.data))
+            # print('request:', json.dumps(request.data))
 
             platform = request.data.get('platform',None)
-            image_base_data = request.data.get('image_base_data',None)
-            audio_base_data = request.data.get('audio_base_data',None)
+            image_base_data = request.data.get('imageData',None)
+            audio_base_data = request.data.get('audioData',None)
             
-            print('audio:', audio_base_data)
+            # print('audio:', audio_base_data)
 
             if platform == None:
                 return self.bad_request_message(f'platform invalid')
@@ -272,7 +272,7 @@ class Mood(APIView):
                 mood = get_emotion(image_base_data.encode('ascii'), audio_base_data.encode('ascii'), platform)
                 response = {'status' : status.HTTP_200_OK, 'result' : { 'mood' : mood }}
 
-                print('response:', json.dumps(response))
+                # print('response:', json.dumps(response))
 
                 return Response(response, status=status.HTTP_200_OK)
 
