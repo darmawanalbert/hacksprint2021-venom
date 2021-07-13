@@ -6,9 +6,10 @@ import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
 import { StandardButton, AudioRecordIndicator } from '../components';
 import colors from '../utils/colors';
+import { API_URL } from '../utils/api';
 
 // Taken from https://docs.expo.io/versions/latest/sdk/audio/ with modifications
-function AudioRecordScreen({ navigation }) {
+function AudioRecordScreen({ route, navigation }) {
     const questionList = [
         'How are you feeling today?',
         'How are you?',
@@ -68,10 +69,19 @@ function AudioRecordScreen({ navigation }) {
         const audioString = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
         const payload = {
             platform: Platform.OS === 'ios' ? 'ios' : 'android',
+            imageData: route.params.imageData,
             audioData: audioString,
         }
 
         // POST method via axios
+        axios.post(API_URL + '/mood', payload)
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
         navigation.navigate('Mood');
     }
 
