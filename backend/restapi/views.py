@@ -167,12 +167,61 @@ class Movies(APIView):
             raise Http404
 
 class Musics(APIView):
+
+    def get_filter_by_genre(self, movies, filters):
+        r_movie = []
+        for movie in movies:
+            for genre in movie['genre']:
+                if genre.lower() in filters:
+                    r_movie.append(movie)
+        return r_movie
+    
+    def get_filter_by_mood(self, movies, filters):
+        r_movie = []
+        for movie in movies:
+            for filter in filters:
+                if movie['moods'][filter] == "on":
+                    r_movie.append(movie)
+        return r_movie
+
+    def get_query_number(self, number):
+        try:
+            number = int(number)
+        except Exception:
+            number = 1
+        
+        return number
+
     def get(self, request, format=None):
 
         id = request.GET.get('id', None)
+        page = self.get_query_number(request.GET.get('page', None))
+
+        offset = 10
+        bottom_limit = page * offset - offset
+        if bottom_limit < 0:
+            bottom_limit = 0
+
+        upper_limit = bottom_limit + offset
 
         if id == None:
-            musics = Music.objects.values()
+
+            musics = Music.objects.values().order_by('-created')
+
+            if request.GET.get('genres', None) != None:
+                filters = request.GET.get('genres', None)
+                musics = self.get_filter_by_genre(musics, filters.lower().split(","))
+            
+            if request.GET.get('moods', None) != None:
+                filters = request.GET.get('moods', None)
+                musics = self.get_filter_by_mood(musics, filters.lower().split(","))
+
+            musics = musics[bottom_limit:upper_limit]
+
+            previous_page = page - 1
+            if previous_page < 0:
+                previous_page = 0
+
             response = {
                 'status' : status.HTTP_200_OK,
                 'data' : musics
