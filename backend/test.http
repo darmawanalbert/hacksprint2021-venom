@@ -20,7 +20,7 @@ Content-Type: application/json
 GET http://localhost:8080/users/
 
 ###
-GET http://localhost:8080/api/test
+GET http://34.129.126.51:8080/api/test
 
 ###
 POST http://localhost:8080/api/mood
