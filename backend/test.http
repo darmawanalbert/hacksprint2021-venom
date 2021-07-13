@@ -1,0 +1,23 @@
+@host = ""
+####
+POST http://localhost:8080/movies/
+Content-Type: application/json
+
+{
+    "title": "my title",
+    "artist_name":"wildan anugrah",
+    "album_name":"bujangan",
+    "published_year":1991,
+    "duration":120,
+    "album_cover":"http://image.com",
+    "genre":["rock","punk"],
+    "spotify_link":"http://spotify.com",
+    "youtube_link":"http://youtube.com",
+    "soundcloud_link":"http://soundcloud.com"
+}
+
+###
+GET http://localhost:8080/users/
+
+###
+GET http://localhost:8080/api/test
