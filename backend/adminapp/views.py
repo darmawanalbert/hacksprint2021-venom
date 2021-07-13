@@ -59,12 +59,12 @@ def logout(request):
     return redirect('/')
 
 def get_query_number(number):
-        try:
-            number = int(number)
-        except Exception:
-            number = 1
-        
-        return number
+    try:
+        number = int(number)
+    except Exception:
+        number = 1
+    
+    return number
 
 def get_movies(request):
     page = get_query_number(request.GET.get('movie_page', None))

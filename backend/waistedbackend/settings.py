@@ -156,3 +156,8 @@ TMDB_CONFIGS = {
     "api_key": "f051a82470ff019fc4f8804131809ea4",
     "base_url": "https://api.themoviedb.org/3"
 }
+
+GENIUS_CONFIGS = {
+    "base_url": "https://api.genius.com",
+    "bearer_auth": "jzqBmW-EV6ZhsysReaaV32rITcbEHZjFegiqm8oVUHL9Olsf8j6QKe9gp8vYxyha"
+}
