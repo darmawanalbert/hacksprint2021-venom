@@ -23,6 +23,7 @@ function AudioRecordScreen({ route, navigation }) {
     const [sound, setSound] = useState();
     const [uri, setUri] = useState('');
     const [question, setQuestion] = useState(questionString);
+    const [isPostLoading, setIsPostLoading] = useState(false);
 
     async function playSound() {
         const { sound } = await Audio.Sound.createAsync(
@@ -62,7 +63,6 @@ function AudioRecordScreen({ route, navigation }) {
         await recording.stopAndUnloadAsync();
         const savedUri = recording.getURI();
         setUri(savedUri)
-        console.log('Recording stopped at', savedUri);
     }
 
     async function postFiles() {
@@ -74,15 +74,19 @@ function AudioRecordScreen({ route, navigation }) {
         }
 
         // POST method via axios
-        axios.post(API_URL + '/mood', payload)
+        setIsPostLoading(true);
+        axios.post(API_URL + '/mood/', payload)
         .then((res) => {
-            console.log(res);
+            console.log(res.data.result.mood);
+            console.log(res.status);
+            navigation.navigate('Mood', { mood: res.data.result.mood });
         })
         .catch((err) => {
             console.log(err);
+        })
+        .finally(() => {
+            setIsPostLoading(false);
         });
-
-        navigation.navigate('Mood');
     }
 
     return (
@@ -126,6 +130,7 @@ function AudioRecordScreen({ route, navigation }) {
                 <StandardButton
                     text="Analyse Mood"
                     onPress={postFiles}
+                    isLoading={isPostLoading}
                 />
             }
         </View>

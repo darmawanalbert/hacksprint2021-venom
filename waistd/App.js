@@ -11,10 +11,10 @@ function MainStackComponent() {
     return (
         <MainStack.Navigator initialRouteName="Welcome">
             <MainStack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
-            <MainStack.Screen name="FrontCamera" component={FrontCameraScreen} />
-            <MainStack.Screen name="AudioRecord" component={AudioRecordScreen} />
-            <MainStack.Screen name="Mood" component={MoodScreen} />
-            <MainStack.Screen name="Recommendation" component={RecommendationScreen} />
+            <MainStack.Screen name="FrontCamera" component={FrontCameraScreen} options={{ title: 'Face Photo'}} />
+            <MainStack.Screen name="AudioRecord" component={AudioRecordScreen} options={{ title: 'Audio Recording'}} />
+            <MainStack.Screen name="Mood" component={MoodScreen} options={{ title: 'Mood Analysis'}} />
+            <MainStack.Screen name="Recommendation" component={RecommendationScreen} options={{ title: 'Recommendations'}} />
         </MainStack.Navigator>
     )
 }

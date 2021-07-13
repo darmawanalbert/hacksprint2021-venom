@@ -18,7 +18,6 @@ function FrontCameraScreen({ navigation }) {
     const takePicture = async () => {
         if (this.camera) {
             const { uri, width, height, exif, base64} = await this.camera.takePictureAsync({ base64: true});
-            console.log('Picture URI:', uri);
             setImageData(base64);
         }
     }
@@ -70,7 +69,7 @@ function FrontCameraScreen({ navigation }) {
                         {
                             Array.isArray(faceDetected) && faceDetected.length
                             ? <Text style={styles.faceIndicatorText}>Face Detected</Text>
-                            : <Text style={styles.faceIndicatorText}>Face Not Detected</Text>
+                            : <Text style={styles.faceIndicatorText}>Look at the Camera</Text>
                         }
                     </View>
                     <TouchableOpacity style={styles.takePictureButton} onPress={takePicture} />
