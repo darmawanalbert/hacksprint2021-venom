@@ -44,3 +44,11 @@ class SpeechEmotionDetection:
             return result
         else:
             self.classifier.predict(feature)[0]
+    
+    def map_to_standard_emotion(self, proba):
+        standard_result = {"anger": 0, "fear":0, "happiness":0, "sadness":0}
+        standard_result["anger"] = proba.get("angry",0)
+        standard_result["fear"] = proba.get("fear",0)
+        standard_result["happiness"] = proba.get("happy",0)
+        standard_result["sadness"] = proba.get("sad",0)
+        return standard_result

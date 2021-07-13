@@ -31,3 +31,10 @@ def extract_emotion(image_path):
         emotion_result = face_result.face_attributes.as_dict()
     return emotion_result['emotion']
 
+def map_to_standard_emotion(probability):
+    standard_result = {"anger": 0, "fear":0, "happiness":0, "sadness":0}
+    standard_result["sadness"] = probability["sadness"] + probability["disgust"]
+    standard_result["anger"] = probability["anger"] + probability["contempt"]
+    standard_result["fear"] = probability["fear"]
+    standard_result["happiness"] = probability["happiness"] + probability["neutral"] + probability["surprise"]
+    return standard_result
