@@ -31,8 +31,9 @@ def extract_emotion(image_path):
 
 def map_to_standard_emotion(probability):
     standard_result = {"anger": 0, "fear":0, "happiness":0, "sadness":0}
-    standard_result["sadness"] = probability["sadness"] + probability["disgust"]
-    standard_result["anger"] = probability["anger"] + probability["contempt"]
-    standard_result["fear"] = probability["fear"]
-    standard_result["happiness"] = probability["happiness"] + probability["neutral"] + probability["surprise"]
+    neutral_addition =  probability["neutral"] / 4
+    standard_result["sadness"] = probability["sadness"] + probability["disgust"] + neutral_addition
+    standard_result["anger"] = probability["anger"] + probability["contempt"] + neutral_addition
+    standard_result["fear"] = probability["fear"] + neutral_addition
+    standard_result["happiness"] = probability["happiness"]+ probability["surprise"] + neutral_addition
     return standard_result

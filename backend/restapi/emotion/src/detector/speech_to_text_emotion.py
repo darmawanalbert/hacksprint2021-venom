@@ -19,7 +19,7 @@ def get_text_from_speech(speech_file):
     Get the text from speech using azure API
     
     """
-    speech_recognizer = create_speech_recognizer(settings.KEY_COG, settings.REGION_COG,speech_file)
+    speech_recognizer = create_speech_recognizer(speech_file)
     result = speech_recognizer.recognize_once_async().get()
     if result.reason == speechsdk.ResultReason.RecognizedSpeech:
         return result.text
