@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import { WelcomeScreen, FrontCameraScreen, AudioRecordScreen, MoodScreen, RecommendationScreen } from './screens';
+
+const MainStack = createStackNavigator();
+
+function App() {
+    return (
+        <NavigationContainer>
+            <MainStack.Navigator initialRouteName="Welcome">
+                <MainStack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+                <MainStack.Screen name="FrontCamera" component={FrontCameraScreen} />
+                <MainStack.Screen name="AudioRecord" component={AudioRecordScreen} />
+                <MainStack.Screen name="Mood" component={MoodScreen} />
+                <MainStack.Screen name="Recommendation" component={RecommendationScreen} />
+            </MainStack.Navigator>
+        </NavigationContainer>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
