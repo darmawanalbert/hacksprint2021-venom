@@ -13,14 +13,17 @@ function WelcomeScreen({ navigation }) {
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Image source={logo} style={{ width: imageWidth, height: imageHeight }} />
-            <LinkButton
-                text="About page"
-                onPress={() => navigation.navigate('About')}
-            />
-            <StandardButton
-                text="Detect Mood"
-                onPress={() => navigation.navigate('FrontCamera')}
-            />
+            <View>
+                <StandardButton
+                    text="Detect Mood"
+                    onPress={() => navigation.navigate('FrontCamera')}
+                />
+                <LinkButton
+                    text="About page"
+                    onPress={() => navigation.navigate('About')}
+                    style={{ marginVertical: 8 }}
+                />
+            </View>
         </View>
     )
 }

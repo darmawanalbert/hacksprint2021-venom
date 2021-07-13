@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-function LinkButton({ text = '', iconName= '', onPress }) {
+function LinkButton({ text = '', onPress, style = {} }) {
     return (
-        <TouchableOpacity style={styles.container} onPress={onPress}>
+        <TouchableOpacity style={[styles.container, {...style}]} onPress={onPress}>
             <Text style={styles.textLink}>{text}</Text>
         </TouchableOpacity>
     )
