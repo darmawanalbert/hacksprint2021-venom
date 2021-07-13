@@ -169,13 +169,17 @@
                         <label class="form-check-label" for="inputAnger">Anger</label>
                       </td>
                       <td>
+                        <input type="checkbox" class="form-check-input" name="sadness" {% if movie.moods.sadness == 'on'%}checked{% endif %} id="inputSadness">
+                        <label class="form-check-label" for="inputSadness">Sadness</label>
+                      </td>
+                      <!-- <td>
                         <input type="checkbox" class="form-check-input" name="contempt" {% if movie.moods.contempt == 'on'%}checked{% endif %} id="inputContempt">
                         <label class="form-check-label" for="inputContempt">Contempt*</label>
                       </td>
                       <td>
                         <input type="checkbox" class="form-check-input" name="disgust" {% if movie.moods.disgust == 'on'%}checked{% endif %} id="inputDisgusts">
                         <label class="form-check-label" for="inputDisgusts">Disgust</label>
-                      </td>
+                      </td> -->
                     </tr>
                     <tr>
                       <td>
@@ -186,17 +190,13 @@
                         <input type="checkbox" class="form-check-input" name="happiness" {% if movie.moods.happiness == 'on'%}checked{% endif %} id="inputHapiness">
                         <label class="form-check-label" for="inputHapiness">Happiness</label>
                       </td>
-                      <td>
-                        <input type="checkbox" class="form-check-input" name="sadness" {% if movie.moods.sadness == 'on'%}checked{% endif %} id="inputSadness">
-                        <label class="form-check-label" for="inputSadness">Sadness</label>
-                      </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td>
                         <input type="checkbox" class="form-check-input" name="surprise" {% if movie.moods.surprise == 'on'%}checked{% endif %} id="inputSurprise">
                         <label class="form-check-label" for="inputSurprise">Surprise</label>
                       </td>
-                    </tr>
+                    </tr> -->
                   </table>
                 </div>
               

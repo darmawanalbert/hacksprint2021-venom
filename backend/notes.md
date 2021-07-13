@@ -183,3 +183,7 @@ Vary: Accept
 ssh wildananugrah@34.129.126.51
 
 docker run --name mongo -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password -p 27017:27017 -d mongo
+
+1. Ngirim image sama audio dapet mood nya doang
+2. Query movies, preference optional, mood mandatory
+3. musics, preference optional, mood mandatory
