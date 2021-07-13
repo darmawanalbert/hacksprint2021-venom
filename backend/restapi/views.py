@@ -9,7 +9,10 @@ from django.forms.models import model_to_dict
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
+from restapi.emotion.voting import get_emotion
+
 import uuid
+import json
 
 class Test(APIView):
     def get(self, request, format=None):
@@ -242,3 +245,37 @@ class Musics(APIView):
         except Movie.DoesNotExist:
             raise Http404
 
+
+class Mood(APIView):
+
+    def bad_request_message(self, message):
+        return Response({'status': status.HTTP_400_BAD_REQUEST, 'message':message}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def post(self, request, format=None):
+        try:
+
+            print('request:', json.dumps(request.data))
+
+            platform = request.data.get('platform',None)
+            image_base_data = request.data.get('image_base_data',None)
+            audio_base_data = request.data.get('audio_base_data',None)
+            
+            print('audio:', audio_base_data)
+
+            if platform == None:
+                return self.bad_request_message(f'platform invalid')
+            elif image_base_data == None:
+                return self.bad_request_message(f'image_base_data invalid')
+            elif audio_base_data == None:
+                return self.bad_request_message(f'audio_base_data invalid')
+            else:
+                mood = get_emotion(image_base_data.encode('ascii'), audio_base_data.encode('ascii'), platform)
+                response = {'status' : status.HTTP_200_OK, 'result' : { 'mood' : mood }}
+
+                print('response:', json.dumps(response))
+
+                return Response(response, status=status.HTTP_200_OK)
+
+        except Exception as err:
+            print(err)
+            return Response({'status' : status.HTTP_500_INTERNAL_SERVER_ERROR,'message':'internal error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

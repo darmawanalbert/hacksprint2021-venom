@@ -1,8 +1,8 @@
 from PIL.Image import preinit
 from scipy.stats import entropy
-from restapi.emotion.src.detector.speech import SpeechEmotionDetection
-from restapi.emotion.src.detector.util import convert_normalize, convert_base64_to_file, resize_image
-from restapi.emotion.src.detector.face import extract_emotion, map_to_standard_emotion
+from src.detector.speech import SpeechEmotionDetection
+from src.detector.util import convert_normalize, convert_base64_to_file, resize_image
+from src.detector.face import extract_emotion, map_to_standard_emotion
 from pathlib import Path
 from datetime import datetime
 

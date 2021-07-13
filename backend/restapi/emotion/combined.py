@@ -5,7 +5,7 @@ from src.detector.face import extract_emotion
 SPEECH_MODEL = "model/classifier.pickle"
 
 
-def get_emotion(base_image,base_sound):
+def get_emotion(base_image,base_sound, platform='android'):
     #speech
     temp_sound_file = "data/processed/sound_file.m4a" # dangerous
     convert_base64_to_file(base_sound,temp_sound_file)
