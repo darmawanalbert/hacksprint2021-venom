@@ -69,7 +69,7 @@ def test_combined():
     return emotion
 
 def test_image():
-    temp_image_file = PATH + "/data/raw/image_file.jpeg"
+    temp_image_file = PATH + "/data/raw/test.jpeg"
     prediction = extract_emotion(temp_image_file)
     prediction = map_to_standard_emotion(prediction)
     print(prediction)
@@ -84,16 +84,16 @@ def test_speech_to_text():
     print(prediction)
 
 def test_combined_file():
-    sound_file = PATH+ "/data/raw/sound_file.m4a"
-    image_file = PATH+ "/data/processed/images.jpeg"
+    sound_file = PATH+ "/data/raw/test.m4a"
+    image_file = PATH+ "/data/raw/test.jpeg"
     im_64 = None
     sound_64 = None
     with open(image_file, "rb") as imfile:
         im_64 = base64.b64encode(imfile.read())
     with open(sound_file, "rb") as soundfile:
         sound_64 = base64.b64encode(soundfile.read())
-    emotion = get_emotion(im_64, sound_64)
-    print(emotion)
+    emotion = get_emotion(im_64, sound_64, platform="android", id="1234")
+    assert emotion == "anger"
 
 if __name__ == '__main__':
     #test_speech_with_raw_files()

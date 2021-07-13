@@ -27,7 +27,10 @@ def extract_emotion(image_path):
     detected_faces = face_client.face.detect_with_stream(image=get_image(image_path), return_face_attributes=attributes)
     for face_result in detected_faces:
         emotion_result = face_result.face_attributes.as_dict()
-    return emotion_result['emotion']
+    if len(detected_faces) > 0:
+        return emotion_result['emotion']
+    else:
+        return {"anger": 0, "fear":0, "happiness":0, "sadness":0, "disgust":0,"contempt":0, "surprise":0, "neutral":0}
 
 def map_to_standard_emotion(probability):
     standard_result = {"anger": 0, "fear":0, "happiness":0, "sadness":0}
