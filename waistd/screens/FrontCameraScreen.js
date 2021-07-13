@@ -70,7 +70,7 @@ function FrontCameraScreen({ navigation }) {
                         {
                             Array.isArray(faceDetected) && faceDetected.length
                             ? <Text style={styles.faceIndicatorText}>Face Detected</Text>
-                            : <Text style={styles.faceIndicatorText}>Face Not Detected</Text>
+                            : <Text style={styles.faceIndicatorText}>Look at the Camera</Text>
                         }
                     </View>
                     <TouchableOpacity style={styles.takePictureButton} onPress={takePicture} />

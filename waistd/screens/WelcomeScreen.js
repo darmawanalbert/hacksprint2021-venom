@@ -19,7 +19,7 @@ function WelcomeScreen({ navigation }) {
                     onPress={() => navigation.navigate('FrontCamera')}
                 />
                 <LinkButton
-                    text="About page"
+                    text="About"
                     onPress={() => navigation.navigate('About')}
                     style={{ marginVertical: 8 }}
                 />
