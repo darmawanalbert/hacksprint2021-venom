@@ -8,6 +8,7 @@ urlpatterns = [
     path('users/', views.Users.as_view()),
     path('test/', views.Test.as_view()),
     path('tmdb/', third_party_views.TMDBView.as_view()),
+    path('mood/', views.Mood.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

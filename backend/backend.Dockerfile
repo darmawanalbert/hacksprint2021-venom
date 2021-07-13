@@ -9,4 +9,13 @@ RUN adduser \
     app
 USER app
 EXPOSE 8080
+
+USER root
+RUN apt-get install ppa-purge
+RUN ppa-purge ppa:mc3man/trusty-media  
+RUN add-apt-repository ppa:mc3man/trusty-media
+RUN apt-get update
+RUN apt-get dist-upgrade
+RUN apt-get --assume-yes install ffmpeg
+
 CMD python manage.py runserver 0.0.0.0:8080

@@ -21,3 +21,13 @@ GET http://localhost:8080/users/
 
 ###
 GET http://localhost:8080/api/test
+
+###
+POST http://localhost:8080/api/mood
+Content-Type: application/json
+
+{
+    "platform": "android",
+    "image_base_data": "",
+    "audio_base_data":""
+}

@@ -41,8 +41,6 @@ def login(request):
         username = request.POST.get('username','')
         password = request.POST.get('password','')
 
-        print("username:", username, " password:", password)
-
         if authenticate(username=username,password=password) != None:
             user = User.objects.filter(username=username).values()
             request.session['is_login'] = True

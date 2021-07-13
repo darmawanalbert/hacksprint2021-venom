@@ -4,3 +4,11 @@ markdown
 django-filter
 djongo
 requests
+soundfile
+numpy
+librosa
+sklearn
+pydub
+azure-cognitiveservices-speech
+azure-cognitiveservices-vision-face
+Pillow
