@@ -104,7 +104,6 @@
             <div class="card-body">
                 <input type="hidden" value="{{ action }}" name="action" />
                 <input type="hidden" value="{{ movie.id }}" name="id" />
-                <input type="hidden" value="" name="raw_data" id="inputRawData" />
                 <div class="form-group">
                     <label for="inputTitle">Title</label>
                     <input type="text" class="form-control" id="inputTitle" name="title" value="{{ movie.title }}" placeholder="e.g My title movie">
@@ -125,8 +124,20 @@
                     <input type="text" class="form-control" id="inputPublishedYear" name="published_year" value="{{ movie.published_year }}" placeholder="e.g 1991">
                 </div>
                 <div class="form-group">
+                    <label for="inputReleasedDate">Released Date</label>
+                    <input type="text" class="form-control" id="inputReleasedDate" name="released_date" value="{{ movie.released_date }}" placeholder="e.g yyyy-mm-dd">
+                </div>  
+                <div class="form-group">
                     <label for="inputDuration">Duration</label>
                     <input type="text" class="form-control" id="inputDuration" name="duration" value="{{ movie.duration }}" placeholder="e.g 120">
+                </div>
+                <div class="form-group">
+                    <label for="inputVoteAverage">Vote Average</label>
+                    <input type="text" class="form-control" id="inputVoteAverage" name="vote_average" value="{{ movie.vote_average }}" placeholder="e.g 120">
+                </div>
+                <div class="form-group">
+                    <label for="inputOverview">Overview</label>
+                    <input type="text" class="form-control" id="inputOverview" name="overview" value="{{ movie.overview }}" placeholder="e.g 120">
                 </div>
                 <div class="form-group">
                     <label for="inputMovieCover">Poster Cover</label>
@@ -134,7 +145,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputMovieCover">Backdrop Cover</label>
-                    <input type="text" class="form-control" id="inputBackdropCover" name="backdrop_cover" value="{{ movie.poster_cover }}" placeholder="e.g https://yourcoverlink.com">
+                    <input type="text" class="form-control" id="inputBackdropCover" name="backdrop_cover" value="{{ movie.backdrop_cover }}" placeholder="e.g https://yourcoverlink.com">
                 </div>
                 <div class="form-group">
                     <label for="inputGenre">Genre</label>
@@ -193,6 +204,9 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <button type="submit" class="btn bg-gradient-primary" style = "text-transform:capitalize;">{{ action }}</button>
+                {% if action == 'update' %}
+                <a href="/admin/movies/" class="btn btn-default" style = "text-transform:capitalize;">Add New</a>
+                {% endif %}
             </div>
             <!-- /.card-footer-->
         </form>
@@ -246,20 +260,28 @@
         fetch(location.protocol + '//' + location.host + "/api/tmdb/?query=" + query)
         .then((resp) => resp.json())
         .then(function(response){
-          console.log(response)
-          $("#inputPublishedYear").val(response.movie.published_year)
-          $("#inputDuration").val(response.movie.runtime)
-          $("#inputPosterCover").val(response.movie.poster_fullpath)
-          $("#inputBackdropCover").val(response.movie.backdrop_fullpath)
-          $("#inputGenre").val(response.movie.genre_names.join(","))
-          $("#inputTitle").val(response.movie.title)
 
-          $("#inputRawData").val(response.movie)
+          if(response.status == 200){
+            $("#inputPublishedYear").val(response.movie.published_year)
+            $("#inputDuration").val(response.movie.runtime)
+            $("#inputPosterCover").val(response.movie.poster_fullpath)
+            $("#inputBackdropCover").val(response.movie.backdrop_fullpath)
+            $("#inputGenre").val(response.movie.genre_names.join(","))
+            $("#inputTitle").val(response.movie.title)
+            $("#inputOverview").val(response.movie.overview)
+            $("#inputVoteAverage").val(response.movie.vote_average)
+            $("#inputReleasedDate").val(response.movie.release_date)
 
+            $("#inputRawData").val(response.movie)
+          } else {
+            alert(response.message)
+          }
+          
           $("#inquiryTMDB").attr('disabled',false)
           $("#inquiryTMDB").text('Inquiry to TMDB')
         }).catch(function(error){
           console.log(error)
+
           $("#inquiryTMDB").attr('disabled',false)
           $("#inquiryTMDB").text('Inquiry to TMDB')
         })

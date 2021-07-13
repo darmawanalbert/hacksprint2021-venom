@@ -15,6 +15,10 @@ def split_by_comma(str):
     else:
         return []
 
+def get_user(request):
+    user_id = int(request.session['user_id'])
+    return User.objects.get(id=user_id)
+
 def index(request):
     if request.method == 'GET':
         if request.GET.get("action", None) == None:
@@ -35,8 +39,6 @@ def index(request):
             return render(request,"adminapp/movie_add_or_update.html", context=context)
 
     elif request.method == 'POST':
-
-        print("hello there!")
 
         anger = request.POST.get('anger','off')
         contempt = request.POST.get('contempt','off')
@@ -69,13 +71,17 @@ def index(request):
                 director_name=request.POST.get("director_name",""),
                 cast=cast,
                 published_year=request.POST.get("published_year",0),
+                released_date=request.POST.get("released_date",""),
                 duration=request.POST.get("duration",0),
+                overview=request.POST.get("overview",""),
+                vote_average=request.POST.get("vote_average",0),
                 poster_cover=request.POST.get("poster_cover",""),
                 backdrop_cover=request.POST.get("backdrop_cover",""),
                 genre=genre,
                 netflix_link=request.POST.get("netflix_link",""),
                 youtube_link=request.POST.get("youtube_link",""),
-                moods=moods)
+                moods=moods,
+                created_by=get_user(request).username)
             movie.save()
             return redirect('/admin/movies?id=' + str(id) + '&action=update')
         elif request.POST.get("action","") == "update":
@@ -85,12 +91,16 @@ def index(request):
             movie.director_name=request.POST.get("director_name","")
             movie.cast=cast
             movie.published_year=request.POST.get("published_year",0)
+            movie.released_date=request.POST.get("released_date",0)
             movie.duration=request.POST.get("duration",0)
+            movie.overview=request.POST.get("overview",0)
+            movie.vote_average=request.POST.get("vote_average",0)
             movie.poster_cover=request.POST.get("poster_cover","")
             movie.backdrop_cover=request.POST.get("backdrop_cover","")
             movie.genre=genre
             movie.netflix_link=request.POST.get("netflix_link","")
             movie.youtube_link=request.POST.get("youtube_link","")
             movie.moods = moods
+            movie.updated_by = get_user(request).username
             movie.save()
             return redirect('/admin/movies?id=' + id + '&action=update')
