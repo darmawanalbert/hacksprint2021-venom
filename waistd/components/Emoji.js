@@ -5,13 +5,13 @@ import colors from '../utils/colors';
 
 function Emoji({ size = 100, mood }) {
     let moodString;
-    if (mood === "angry") {
+    if (mood === "anger") {
         moodString = "ko";
     }
     else if (mood === "fear") {
         moodString = "shocked"
     }
-    else if (mood === "sad") {
+    else if (mood === "sadness") {
         moodString = "sad"
     }
     else {

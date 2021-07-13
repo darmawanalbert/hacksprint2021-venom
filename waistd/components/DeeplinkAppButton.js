@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button } from 'react-native';
 import AppLink from 'react-native-app-link';
 
-function DeeplinkAppButton() {
+import LinkButton from './LinkButton';
+
+function DeeplinkAppButton({ text }) {
     const handleDeeplink = () => {
         const uri = 'spotify://artist/1uNFoZAHBGtllmzznpCI3s';
         AppLink.maybeOpenURL(uri, {
@@ -19,8 +20,8 @@ function DeeplinkAppButton() {
     }
 
     return (
-        <Button
-            title="Deeplink App"
+        <LinkButton
+            text={text}
             onPress={handleDeeplink}
         />
     );

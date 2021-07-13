@@ -1,16 +1,17 @@
 import React from 'react';
-import { Button } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
-function DeeplinkWebButton() {
+import LinkButton from './LinkButton';
+
+function DeeplinkWebButton({ text }) {
     const handleDeeplink = () => {
         const url = 'https://open.spotify.com/artist/1uNFoZAHBGtllmzznpCI3s';
         WebBrowser.openBrowserAsync(url);
     }
 
     return (
-        <Button
-            title="Deeplink Web"
+        <LinkButton
+            text={text}
             onPress={handleDeeplink}
         />
     );

@@ -18,7 +18,6 @@ function FrontCameraScreen({ navigation }) {
     const takePicture = async () => {
         if (this.camera) {
             const { uri, width, height, exif, base64} = await this.camera.takePictureAsync({ base64: true});
-            console.log('Picture URI:', uri);
             setImageData(base64);
         }
     }

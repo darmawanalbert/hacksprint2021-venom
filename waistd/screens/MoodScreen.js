@@ -3,13 +3,27 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Emoji, StandardButton, CellList } from '../components';
 import colors from '../utils/colors';
 
-function MoodScreen({ navigation }) {
+function MoodScreen({ route, navigation }) {
+    const { mood } = route.params;
+    let moodColor;
+    if (mood === "anger") {
+        moodColor = colors.angry;
+    }
+    else if (mood === "fear") {
+        moodColor = colors.fear;
+    }
+    else if (mood === "sadness") {
+        moodColor = colors.sad;
+    }
+    else {
+        moodColor = colors.happy;
+    }
     return (
         <View style={styles.container}>
             <View style={styles.emojiContainer}>
                 <Text style={styles.heading}>Your Mood</Text>
-                <Emoji mood="angry" />
-                <Text style={styles.subheading}>Angry</Text>
+                <Emoji mood={mood} />
+                <Text style={[styles.subheading, {color: moodColor}]}>{mood}</Text>
                 <Text style={styles.microText}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet turpis nec magna elementum ultrices quis sed elit. Donec in mollis sem. Vivamus fermentum tellus vitae lacus luctus, sit amet iaculis diam fermentum. Sed bibendum mauris a ullamcorper vehicula. Nam tincidunt, augue nec facilisis elementum, leo diam rhoncus nunc, blandit cursus quam risus ac libero. Vivamus semper urna nec iaculis lacinia. Curabitur non orci consequat, tempor sapien in, sagittis sapien.
                 </Text>
