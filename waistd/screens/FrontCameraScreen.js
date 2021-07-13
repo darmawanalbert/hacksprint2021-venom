@@ -72,7 +72,11 @@ function FrontCameraScreen({ navigation }) {
                             : <Text style={styles.faceIndicatorText}>Look at the Camera</Text>
                         }
                     </View>
-                    <TouchableOpacity style={styles.takePictureButton} onPress={takePicture} />
+                    <TouchableOpacity
+                        style={styles.takePictureButton}
+                        onPress={takePicture}
+                        disabled={!(Array.isArray(faceDetected) && faceDetected.length)}
+                    />
                 </View>
             </Camera>
         </View>
