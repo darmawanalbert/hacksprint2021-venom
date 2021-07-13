@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-import { StandardButton } from '../components';
+import { StandardButton, CheckboxList } from '../components';
 import colors from '../utils/colors';
 
 function PreferenceScreen({ navigation }) {
@@ -10,6 +10,7 @@ function PreferenceScreen({ navigation }) {
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Text>Preference Screen</Text>
+            <CheckboxList />
             <StandardButton
                 text="Close modal"
                 onPress={() => navigation.goBack()}

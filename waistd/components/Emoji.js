@@ -18,6 +18,20 @@ function Emoji({ size = 100, mood }) {
         moodString = "happy";
     }
 
+    let moodColor;
+    if (mood === "anger") {
+        moodColor = colors.angry;
+    }
+    else if (mood === "fear") {
+        moodColor = colors.fear;
+    }
+    else if (mood === "sadness") {
+        moodColor = colors.sad;
+    }
+    else {
+        moodColor = colors.happy;
+    }
+
     const yTranslation = useRef(new Animated.Value(0)).current;
     const runAnimation = () => {
         return Animated.loop(
@@ -53,7 +67,7 @@ function Emoji({ size = 100, mood }) {
                 paddingBottom: 24
             }}
         >
-            <Planet size={size} mood={moodString} color={colors[mood]} />
+            <Planet size={size} mood={moodString} color={moodColor} />
         </Animated.View>
     );
 }
