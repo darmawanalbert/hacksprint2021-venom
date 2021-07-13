@@ -63,13 +63,13 @@ class TMDBView(APIView):
     def get(self, request, format=None):
         api_key = settings.TMDB_CONFIGS['api_key']
 
-        query = request.GET.get("query","")
+        query = request.GET.get("query",None)
 
         response = {}
         tmdb_response = self.search_movie({'api_key' : api_key, 'query' : query})
         genres = self.get_genres({ 'api_key' : api_key })
 
-        if(len(tmdb_response['results']) > 0):
+        if(query != None and len(tmdb_response['results']) > 0):
             response['movie'] = tmdb_response['results'][0]
             movie_detail = self.get_detail(response['movie']['id'], { 'api_key' : api_key })
             response['movie']['backdrop_fullpath'] = self.get_fullpath(response['movie']['backdrop_path'])

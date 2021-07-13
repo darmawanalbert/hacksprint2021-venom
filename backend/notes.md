@@ -187,3 +187,5 @@ docker run --name mongo -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT
 1. Ngirim image sama audio dapet mood nya doang
 2. Query movies, preference optional, mood mandatory
 3. musics, preference optional, mood mandatory
+
+nohup python3.9 manage.py runserver 0.0.0.0:8080 &
