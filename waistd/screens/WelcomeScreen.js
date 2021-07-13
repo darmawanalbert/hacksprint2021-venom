@@ -14,6 +14,10 @@ function WelcomeScreen({ navigation }) {
             <StatusBar style="auto" />
             <Image source={logo} style={{ width: imageWidth, height: imageHeight }} />
             <StandardButton
+                text="About page"
+                onPress={() => navigation.navigate('About')}
+            />
+            <StandardButton
                 text="Detect Mood"
                 onPress={() => navigation.navigate('FrontCamera')}
             />
