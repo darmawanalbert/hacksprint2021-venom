@@ -10,6 +10,8 @@ RUN adduser \
 USER app
 EXPOSE 8080
 
-RUN apt-get install ffmpeg
+USER root
+
+RUN apt-get --assume-yes install ffmpeg
 
 CMD python manage.py runserver 0.0.0.0:8080
