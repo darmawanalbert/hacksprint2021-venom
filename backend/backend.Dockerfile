@@ -12,7 +12,7 @@ EXPOSE 8080
 
 USER root
 RUN apt-get install ppa-purge
-RUN ppa-purge ppa:mc3man/trusty-media  # ignore warning if not found
+RUN ppa-purge ppa:mc3man/trusty-media  
 RUN add-apt-repository ppa:mc3man/trusty-media
 RUN apt-get update
 RUN apt-get dist-upgrade
