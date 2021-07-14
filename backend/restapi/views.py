@@ -45,7 +45,7 @@ class Movies(APIView):
         r_movie = []
         for movie in movies:
             for genre in movie['genre']:
-                if genre.lower() in filters:
+                if genre.lower() in filters and movie not in r_movie:
                     r_movie.append(movie)
         return r_movie
     
@@ -173,7 +173,7 @@ class Musics(APIView):
         r_music = []
         for music in musics:
             for genre in music['genre']:
-                if genre.lower() in filters:
+                if genre.lower() in filters and music not in r_music:
                     r_music.append(music)
         return r_music
     
