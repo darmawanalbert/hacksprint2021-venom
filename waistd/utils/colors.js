@@ -19,4 +19,5 @@ export default colors = {
     // White
     white: "#ffffff",
     whiteSecondary: "#f3f3f3",
+    grey: "#535c68"
 };

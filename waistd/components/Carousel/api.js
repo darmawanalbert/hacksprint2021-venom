@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/api';
 
 export const getMovies = async (mood, genreList = []) => {
-	let url = API_URL + '/movies/?mood=' + mood;
+	let url = API_URL + '/movies/?moods=' + mood;
 	const genreString = genreList.reduce((acc, value) => (acc + value.toLowerCase() + ','), '');
 	const genreParam = genreString.slice(0,-1);
 	if (genreParam !== '') {

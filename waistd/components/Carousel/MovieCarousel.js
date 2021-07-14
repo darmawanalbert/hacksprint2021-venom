@@ -15,6 +15,7 @@
  } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { DotIndicator } from 'react-native-indicators';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getMovies } from './api';
 import Genres from './Genres';
@@ -88,7 +89,17 @@ export default function MovieCarousel({ mood }) {
     const scrollX = React.useRef(new Animated.Value(0)).current;
     React.useEffect(() => {
         const fetchData = async () => {
-            const movies = await getMovies(mood);
+            let movieGenre = [];
+            try {
+                const movieGenreString = await AsyncStorage.getItem('@MovieGenre');
+                if (movieGenreString != null) {
+                    movieGenre = JSON.parse(movieGenreString);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+            const movieGenreList = movieGenre.filter(item => item.selected === true).map(item => item.name);
+            const movies = await getMovies(mood, movieGenreList);
             // Add empty items to create fake space
             // [empty_item, ...movies, empty_item]
             setMovies([{ id: 'empty-left' }, ...movies, { id: 'empty-right' }]);
