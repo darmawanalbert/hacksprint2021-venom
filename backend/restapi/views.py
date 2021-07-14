@@ -180,8 +180,8 @@ class Musics(APIView):
         r_music = []
         for music in musics:
             for filter in filters:
-                if musics['moods'][filter] == "on":
-                    r_music.append(musics)
+                if music['moods'][filter] == "on":
+                    r_music.append(music)
         return r_music
 
     def get_query_number(self, number):
