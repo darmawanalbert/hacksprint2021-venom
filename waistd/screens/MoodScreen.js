@@ -44,14 +44,19 @@ function MoodScreen({ route, navigation }) {
             </View>
             <View>
                 <Text style={styles.heading}>Recommendations</Text>
-                <LinkButton
-                    text="Movie Preference"
-                    onPress={() => navigation.navigate('MoviePreference')}
-                    style={{ marginBottom: 8 }}
-                />
                 <View style={styles.cellList}>
                     <CellItem text="Music" iconName="musical-notes" onPress={() => navigation.navigate('Movie', { mood: mood })}/>
+                    <LinkButton
+                        text="Music Preference"
+                        onPress={() => navigation.navigate('MusicPreference')}
+                        style={{ marginBottom: 8 }}
+                    />
                     <CellItem text="Movie" iconName="film" onPress={() => navigation.navigate('Movie', { mood: mood })} />
+                    <LinkButton
+                        text="Movie Preference"
+                        onPress={() => navigation.navigate('MoviePreference')}
+                        style={{ marginBottom: 8 }}
+                    />
                 </View>
             </View>
         </View>
