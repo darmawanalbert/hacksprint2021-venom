@@ -76,6 +76,7 @@ def index(request):
                 spotify_link = request.POST.get("spotify_link",""),
                 youtube_link = request.POST.get("youtube_link",""),
                 soundcloud_link = request.POST.get("soundcloud_link",""),
+                genius_link = request.POST.get("genius_link",""),
                 moods = moods,
                 created_by=get_user(request).username
                 )
@@ -100,6 +101,7 @@ def index(request):
             music.spotify_link = request.POST.get("spotify_link","")
             music.youtube_link = request.POST.get("youtube_link","")
             music.soundcloud_link = request.POST.get("soundcloud_link","")
+            music.genius_link = request.POST.get("genius_link","")
             music.updated_by = get_user(request).username
             music.moods = moods
             music.save()
