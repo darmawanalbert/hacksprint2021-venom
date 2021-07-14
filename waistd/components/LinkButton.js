@@ -14,7 +14,8 @@ function LinkButton({ text = '', onPress, style = {} }) {
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 4
     },
     textLink: {
         textAlign: 'center',
