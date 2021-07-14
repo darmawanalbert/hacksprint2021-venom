@@ -80,7 +80,7 @@ def index(request):
                 created_by=get_user(request).username
                 )
             music.save()
-            return redirect('/admin/dashboard')
+            return redirect('/admin/musics?id=' + str(id) + '&action=update')
         
         elif request.POST.get("action","") == "update":
 
