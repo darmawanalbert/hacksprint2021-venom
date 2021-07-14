@@ -221,8 +221,6 @@
       </div>
       <!-- /.card -->
       
-      
-
     </section>
     <!-- /.content -->
   </div>
@@ -254,7 +252,7 @@
 <script>
   $(function(){
     $("#inquiryTMDB").click(function(){
-
+      
       query = $("#inputTitle").val()
       $("#inquiryTMDB").attr('disabled',true)
       $("#inquiryTMDB").text('loading..')
@@ -296,6 +294,29 @@
       }
       
     })
+
+    $("button[type='submit']").click(function(){
+
+      const GENRES = "{{ genres }}"
+      
+      var input_genres = $("#inputGenre").val()
+      input_genres = input_genres.split(",")
+      var flag = true
+      input_genres.forEach((input_genre) => {
+        if(!GENRES.split(",").includes(input_genre.trim().toLowerCase())){
+          alert("invalid genre: " + input_genre)
+          flag = false
+        }
+      });
+
+      if(!flag){
+        return false
+      }
+      else // submit
+        return true
+
+    })
+
   })
 </script>
 </body>

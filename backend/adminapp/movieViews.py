@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from rest_framework import status
 from restapi.models import Movie
 from django.forms.models import model_to_dict
+from django.conf import settings
 import uuid
 
 # Create your views here.
@@ -22,7 +23,7 @@ def get_user(request):
 def index(request):
     if request.method == 'GET':
         if request.GET.get("action", None) == None:
-            context = { 'action': 'add', 'username': get_user(request) }
+            context = { 'action': 'add', 'username': get_user(request), 'genres' : ",".join(settings.MOVIE_GENRES) }
             return render(request,"adminapp/movie_add_or_update.html", context=context)
         elif request.GET.get("action", None) == "delete":
             id = request.GET.get("id", None)
@@ -35,7 +36,7 @@ def index(request):
         elif request.GET.get("action", None) == "update":
             id = request.GET.get("id", None)
             movie = Movie.objects.get(id=id)
-            context = { 'movie' : model_to_dict(movie), 'action': 'update', 'username': get_user(request)  }
+            context = { 'movie' : model_to_dict(movie), 'action': 'update', 'username': get_user(request), 'genres' : ",".join(settings.MOVIE_GENRES)  }
             return render(request,"adminapp/movie_add_or_update.html", context=context)
 
     elif request.method == 'POST':

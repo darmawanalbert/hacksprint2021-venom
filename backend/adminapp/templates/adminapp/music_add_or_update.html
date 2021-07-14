@@ -183,7 +183,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button type="submit" class="btn bg-gradient-primary">{{ action }}</button>
+                <button type="submit" class="btn bg-gradient-primary" style = "text-transform:capitalize;">{{ action }}</button>
                 {% if action == 'update' %}
                 <a href="/admin/musics/" class="btn btn-default" style = "text-transform:capitalize;">Add New</a>
                 {% endif %}
@@ -275,6 +275,29 @@
       }
       
     })
+
+    $("button[type='submit']").click(function(){
+
+    const GENRES = "{{ genres }}"
+
+    var input_genres = $("#inputGenre").val()
+    input_genres = input_genres.split(",")
+    var flag = true
+    input_genres.forEach((input_genre) => {
+      if(!GENRES.split(",").includes(input_genre.trim().toLowerCase())){
+        alert("invalid genre: " + input_genre)
+        flag = false
+      }
+    });
+
+    if(!flag){
+      return false
+    }
+    else // submit
+      return true
+
+    })
+
   })
 </script>
 </body>

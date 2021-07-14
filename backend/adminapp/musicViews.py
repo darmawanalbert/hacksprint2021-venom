@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from rest_framework import status
 from restapi.models import Music
 from django.forms.models import model_to_dict
+from django.conf import settings
 import uuid
 
 # Create your views here.
@@ -22,7 +23,7 @@ def get_user(request):
 def index(request):
     if request.method == 'GET':
         if request.GET.get("action", None) == None:
-            context = { 'action': 'add',  'username': get_user(request) }
+            context = { 'action': 'add',  'username': get_user(request), 'genres' : ",".join(settings.MUSIC_GENRES)  }
             return render(request,"adminapp/music_add_or_update.html", context=context)
         elif request.GET.get("action", None) == "delete":
             id = request.GET.get("id", None)
@@ -35,7 +36,7 @@ def index(request):
         elif request.GET.get("action", None) == "update":
             id = request.GET.get("id", None)
             music = Music.objects.get(id=id)
-            context = { 'music' : model_to_dict(music), 'action': 'update',  'username': get_user(request) }
+            context = { 'music' : model_to_dict(music), 'action': 'update',  'username': get_user(request), 'genres' : ",".join(settings.MUSIC_GENRES)  }
             return render(request,"adminapp/music_add_or_update.html", context=context)
 
     elif request.method == 'POST':
@@ -75,7 +76,8 @@ def index(request):
                 spotify_link = request.POST.get("spotify_link",""),
                 youtube_link = request.POST.get("youtube_link",""),
                 soundcloud_link = request.POST.get("soundcloud_link",""),
-                moods = moods
+                moods = moods,
+                created_by=get_user(request).username
                 )
             music.save()
             return redirect('/admin/dashboard')
@@ -98,6 +100,7 @@ def index(request):
             music.spotify_link = request.POST.get("spotify_link","")
             music.youtube_link = request.POST.get("youtube_link","")
             music.soundcloud_link = request.POST.get("soundcloud_link","")
+            music.updated_by = get_user(request).username
             music.moods = moods
             music.save()
             return redirect('/admin/dashboard')

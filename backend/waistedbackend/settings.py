@@ -152,15 +152,25 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"), 
 ]
 
+# movies
 TMDB_CONFIGS = {
     "api_key": "f051a82470ff019fc4f8804131809ea4",
     "base_url": "https://api.themoviedb.org/3"
 }
 
+MOVIE_GENRES = [
+    "action","adventure","animation","comedy","crime","documentary",
+    "drama","family","fantasy","history","horror","music","mystery",
+    "romance","science fiction","tv Movie","thriller","war","western"
+]
+
+# music
 GENIUS_CONFIGS = {
     "base_url": "https://api.genius.com",
     "bearer_auth": "jzqBmW-EV6ZhsysReaaV32rITcbEHZjFegiqm8oVUHL9Olsf8j6QKe9gp8vYxyha"
 }
+
+MUSIC_GENRES = ["pop","rock","metal","jazz","classical","hip hop","country","electronic","lo-fi","acoustic"]
 
 # Azure key
 KEY_COG = "e43e3cc65eb7459abc05b13e6d1b15ec"

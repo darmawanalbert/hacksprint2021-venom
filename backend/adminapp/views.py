@@ -53,11 +53,9 @@ def login(request):
     return response
 
 def logout(request):
-
-    print("is_login",request.session['is_login'], " user_id: ", request.session['user_id'])
-
-    del request.session['is_login']
-    del request.session['user_id']
+    if 'is_login' in request.session and request.session['is_login'] != None:
+        del request.session['is_login']
+        del request.session['user_id']
     return redirect('/')
 
 def get_query_number(number):
@@ -86,6 +84,24 @@ def get_movies(request):
 
     return movies[bottom_limit:upper_limit], page + 1
 
+def get_musics(request):
+    page = get_query_number(request.GET.get('music_page', None))
+
+    offset = 5
+    bottom_limit = page * offset - offset
+    if bottom_limit < 0:
+        bottom_limit = 0
+    upper_limit = bottom_limit + 5
+    username = get_user(request).username
+    musics = Music.objects.values().filter(Q(created_by=username) | Q(updated_by=username)).order_by('-created')
+
+    previous_page = page - 1
+    if previous_page < 0:
+        previous_page = 0
+        page = 1
+
+    return musics[bottom_limit:upper_limit], page + 1
+
 def get_user(request):
     user_id = int(request.session['user_id'])
     return User.objects.get(id=user_id)
@@ -101,15 +117,22 @@ def dashboard(request):
             username = get_user(request)
 
             movies, movie_next_page = get_movies(request)
+            musics, music_next_page = get_musics(request)
 
             movie_previous_page = movie_next_page - 2
             if movie_previous_page < 0:
                 movie_previous_page = 0
+            
+            music_previous_page = music_next_page - 2
+            if music_previous_page < 0:
+                music_previous_page = 0
 
             context = {
                 'movies': movies,
                 'movie_next_page' : movie_next_page,
                 'movie_previous_page': movie_previous_page,
+                'music_next_page' : music_next_page,
+                'music_previous_page': music_previous_page,
                 'username': username,
                 'musics' : musics
             }

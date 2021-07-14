@@ -16,6 +16,8 @@ class Music(models.Model):
     spotify_link = models.TextField(blank=True, default='')
     youtube_link = models.TextField(blank=True, default='')
     soundcloud_link = models.TextField(blank=True, default='')
+    created_by = models.CharField(max_length=100, blank=True, default='')
+    updated_by = models.CharField(max_length=100, blank=True, default='')
     moods = models.JSONField(default={})
 
     class Meta:
