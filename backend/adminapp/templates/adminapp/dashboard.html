@@ -81,10 +81,10 @@
             <h1>Dashboard</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
+            <!-- <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Blank Page</li>
-            </ol>
+            </ol> -->
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -113,7 +113,7 @@
                     <tr>
                     <th>Title</th>
                     <th>Director Name</th>
-                    <th style="width: 40px">Published Year</th>
+                    <th>Published Year</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,8 +125,12 @@
                         <a href="/admin/movies/?id={{ movie.id }}&action=update">update</a> |
                         <a href="/admin/movies/?id={{ movie.id }}&action=delete" style="color: red">delete</a>
                     </td>
-                    <td>{{ movie.director_name }}</td>
-                    <td>{{ movie.published_year }}</td>
+                    <td>{{ movie.overview|slice:"0:100" }}.. <a href="/admin/movies/?id={{ movie.id }}&action=update">read more..</a></td>
+                    <td>
+                      {% for detail_genre in movie.genre %}
+                        {{ detail_genre }}
+                      {% endfor %}
+                    </td>
                   </tr>
                   {% endfor %}
                   </tr>

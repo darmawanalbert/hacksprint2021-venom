@@ -61,8 +61,6 @@ def test_combined():
 
     response = requests.post('http://34.129.126.51:8080/api/mood/', json={'platform':'android','imageData':image_64.decode("ascii") ,'audioData':sound_64.decode("ascii") }).json()
 
-    # response = requests.post('http://localhost:8080/api/mood/', json={'platform':'android','image_base_data':'' ,'audio_base_data':'' }).json()
-
     print(response)
     
     emotion = get_emotion(image_64, sound_64)

@@ -50,14 +50,22 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
-              
+              Hi, {{ username }} !
           </a>
         </div>
       </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="/admin/logout/" class="nav-link">
+              <p>
+                Logout
+              </p>
+            </a>
+          </li>
+        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -75,8 +83,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="/admin/dashboard/">Home</a></li>
+              <li class="breadcrumb-item active" style = "text-transform:capitalize;">{{ action }}</li>
             </ol>
           </div>
         </div>
