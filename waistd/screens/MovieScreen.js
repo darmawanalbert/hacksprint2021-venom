@@ -5,11 +5,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MovieCarousel } from '../components';
 import colors from '../utils/colors';
 
-function MovieScreen() {
+function MovieScreen({ route }) {
+    const { mood } = route.params;
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
-            <MovieCarousel />
+            <MovieCarousel mood={mood} />
         </View>
     )
 }

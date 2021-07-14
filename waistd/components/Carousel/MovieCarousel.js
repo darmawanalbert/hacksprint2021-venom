@@ -37,11 +37,11 @@ const Backdrop = ({ movies, scrollX }) => {
         <View style={{ height: BACKDROP_HEIGHT, width, position: 'absolute' }}>
             <FlatList
                 data={movies.reverse()}
-                keyExtractor={(item) => item.key + '-backdrop'}
+                keyExtractor={(item) => item.id + '-backdrop'}
                 removeClippedSubviews={false}
                 contentContainerStyle={{ width, height: BACKDROP_HEIGHT }}
                 renderItem={({ item, index }) => {
-                    if (!item.backdrop) {
+                    if (!item.backdrop_cover) {
                         return null;
                     }
                     const translateX = scrollX.interpolate({
@@ -59,7 +59,7 @@ const Backdrop = ({ movies, scrollX }) => {
                             }}
                         >
                             <Image
-                                source={{ uri: item.backdrop }}
+                                source={{ uri: item.backdrop_cover }}
                                 style={{
                                     width,
                                     height: BACKDROP_HEIGHT,
@@ -83,15 +83,15 @@ const Backdrop = ({ movies, scrollX }) => {
     );
 };
 
-export default function MovieCarousel() {
+export default function MovieCarousel({ mood }) {
     const [movies, setMovies] = React.useState([]);
     const scrollX = React.useRef(new Animated.Value(0)).current;
     React.useEffect(() => {
         const fetchData = async () => {
-            const movies = await getMovies();
+            const movies = await getMovies(mood);
             // Add empty items to create fake space
             // [empty_item, ...movies, empty_item]
-            setMovies([{ key: 'empty-left' }, ...movies, { key: 'empty-right' }]);
+            setMovies([{ id: 'empty-left' }, ...movies, { id: 'empty-right' }]);
         };
 
         if (movies.length === 0) {
@@ -109,7 +109,7 @@ export default function MovieCarousel() {
         <Animated.FlatList
             showsHorizontalScrollIndicator={false}
             data={movies}
-            keyExtractor={(item) => item.key}
+            keyExtractor={(item) => item.id}
             horizontal
             bounces={false}
             decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
@@ -123,7 +123,7 @@ export default function MovieCarousel() {
             )}
             scrollEventThrottle={16}
             renderItem={({ item, index }) => {
-                if (!item.poster) {
+                if (!item.poster_cover) {
                     return <View style={{ width: EMPTY_ITEM_SIZE }} />;
                 }
 
@@ -152,16 +152,16 @@ export default function MovieCarousel() {
                             }}
                         >
                             <Image
-                                source={{ uri: item.poster }}
+                                source={{ uri: item.poster_cover }}
                                 style={styles.posterImage}
                             />
                             <Text style={{ fontSize: 24 }} numberOfLines={1}>
                                 {item.title}
                             </Text>
-                            <Text>{item.rating}</Text>
-                            <Genres genres={item.genres} />
+                            <Text>{item.vote_average}</Text>
+                            <Genres genres={item.genre} />
                             <Text style={{ fontSize: 12 }} numberOfLines={3}>
-                                {item.description}
+                                {item.overview}
                             </Text>
                         </Animated.View>
                     </View>

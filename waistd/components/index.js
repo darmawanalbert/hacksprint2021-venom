@@ -3,7 +3,6 @@ export { default as DeeplinkWebButton } from './DeeplinkWebButton';
 export { default as MovieCarousel } from './Carousel/MovieCarousel';
 export { default as Emoji } from './Emoji';
 export { default as StandardButton } from './StandardButton';
-export { default as CellList } from './CellList';
 export { default as AudioRecordIndicator } from './AudioRecordIndicator';
 export { default as LinkButton } from './LinkButton';
 export { default as CloseButton } from './CloseButton';
