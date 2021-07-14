@@ -152,7 +152,30 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"), 
 ]
 
+# movies
 TMDB_CONFIGS = {
     "api_key": "f051a82470ff019fc4f8804131809ea4",
     "base_url": "https://api.themoviedb.org/3"
 }
+
+MOVIE_GENRES = [
+    "action","adventure","animation","comedy","crime","documentary",
+    "drama","family","fantasy","history","horror","music","mystery",
+    "romance","science fiction","tv Movie","thriller","war","western"
+]
+
+# music
+GENIUS_CONFIGS = {
+    "base_url": "https://api.genius.com",
+    "bearer_auth": "jzqBmW-EV6ZhsysReaaV32rITcbEHZjFegiqm8oVUHL9Olsf8j6QKe9gp8vYxyha"
+}
+
+MUSIC_GENRES = ["pop","rock","metal","jazz","classical","hiphop","country","electronic","lofi","acoustic"]
+
+# Azure key
+KEY_COG = "e43e3cc65eb7459abc05b13e6d1b15ec"
+ENDPOINT_COG = "https://venom-cognitive.cognitiveservices.azure.com/"
+REGION_COG = 'australiaeast'
+
+# Paralleldots key
+KEY_PARALLELDOTS = "JLWHsjG95rh3z34b0H5w5yGxMCoZBHHdLn6YL5Rth1Q"

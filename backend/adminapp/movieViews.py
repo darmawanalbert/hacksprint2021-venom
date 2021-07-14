@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from rest_framework import status
 from restapi.models import Movie
 from django.forms.models import model_to_dict
+from django.conf import settings
 import uuid
 
 # Create your views here.
@@ -22,7 +23,7 @@ def get_user(request):
 def index(request):
     if request.method == 'GET':
         if request.GET.get("action", None) == None:
-            context = { 'action': 'add' }
+            context = { 'action': 'add', 'username': get_user(request), 'genres' : ",".join(settings.MOVIE_GENRES) }
             return render(request,"adminapp/movie_add_or_update.html", context=context)
         elif request.GET.get("action", None) == "delete":
             id = request.GET.get("id", None)
@@ -35,7 +36,7 @@ def index(request):
         elif request.GET.get("action", None) == "update":
             id = request.GET.get("id", None)
             movie = Movie.objects.get(id=id)
-            context = { 'movie' : model_to_dict(movie), 'action': 'update' }
+            context = { 'movie' : model_to_dict(movie), 'action': 'update', 'username': get_user(request), 'genres' : ",".join(settings.MOVIE_GENRES)  }
             return render(request,"adminapp/movie_add_or_update.html", context=context)
 
     elif request.method == 'POST':
@@ -78,6 +79,7 @@ def index(request):
                 poster_cover=request.POST.get("poster_cover",""),
                 backdrop_cover=request.POST.get("backdrop_cover",""),
                 genre=genre,
+                movie_id=request.POST.get("movie_id",""),
                 netflix_link=request.POST.get("netflix_link",""),
                 youtube_link=request.POST.get("youtube_link",""),
                 moods=moods,
@@ -101,6 +103,7 @@ def index(request):
             movie.netflix_link=request.POST.get("netflix_link","")
             movie.youtube_link=request.POST.get("youtube_link","")
             movie.moods = moods
+            movie.movie_id = request.POST.get("movie_id","")
             movie.updated_by = get_user(request).username
             movie.save()
             return redirect('/admin/movies?id=' + id + '&action=update')

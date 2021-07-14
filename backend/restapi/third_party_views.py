@@ -63,13 +63,13 @@ class TMDBView(APIView):
     def get(self, request, format=None):
         api_key = settings.TMDB_CONFIGS['api_key']
 
-        query = request.GET.get("query","")
+        query = request.GET.get("query",None)
 
         response = {}
         tmdb_response = self.search_movie({'api_key' : api_key, 'query' : query})
         genres = self.get_genres({ 'api_key' : api_key })
 
-        if(len(tmdb_response['results']) > 0):
+        if(query != None and len(tmdb_response['results']) > 0):
             response['movie'] = tmdb_response['results'][0]
             movie_detail = self.get_detail(response['movie']['id'], { 'api_key' : api_key })
             response['movie']['backdrop_fullpath'] = self.get_fullpath(response['movie']['backdrop_path'])
@@ -87,5 +87,62 @@ class TMDBView(APIView):
             response['status'] = status.HTTP_404_NOT_FOUND
             return Response(response, status=status.HTTP_404_NOT_FOUND)
 
+class Genius(APIView):
+    def search_music(self, bearer_auth, params):
+        base_url = settings.GENIUS_CONFIGS['base_url']
+        url = base_url + "/search/?" + urllib.parse.urlencode(params)
+        return requests.get(url, headers={"Authorization":f"Bearer {bearer_auth}"}).json()
+    
+    def get_detail_music(self, bearer_auth, music_id):
+        base_url = settings.GENIUS_CONFIGS['base_url']
+        url = base_url + "/songs/" + str(music_id)
+        return requests.get(url, headers={"Authorization":f"Bearer {bearer_auth}"}).json()
 
+    def get_media_link(self, medias, filter):
+        result = {}
+        for media in medias:
+            if media['provider'] == filter:
+                result['url'] = media['url']
+                if 'native_uri' in media:
+                   result['native_uri'] = media['native_uri']
+                break
+        return result
+
+    def get(self, request, format=None):
+        try:
+            bearer_auth = settings.GENIUS_CONFIGS['bearer_auth']
+            query = request.GET.get("query",None)
+
+            if query != None:
+                genius_response = self.search_music(bearer_auth, {'q' : query})
+                genius_response_result = genius_response['response']['hits'][0]['result']
+
+                music_id = genius_response_result['id']
+                detail_music = self.get_detail_music(bearer_auth, music_id)
+
+                detail = {}
+                detail['title'] = detail_music['response']['song']['title']
+                detail['artist_name'] = detail_music['response']['song']['album']['artist']['name']
+                detail['album_name'] = detail_music['response']['song']['album']['full_title']
+                detail['published_year'] = detail_music['response']['song']['release_date']
+                detail['album_cover'] = detail_music['response']['song']['album']['cover_art_url']
+                detail['spotify_link'] = self.get_media_link(detail_music['response']['song']['media'],'spotify')
+                detail['youtube_link'] = self.get_media_link(detail_music['response']['song']['media'],'youtube')
+                detail['soundcloud_link'] = self.get_media_link(detail_music['response']['song']['media'],'soundcloud')
+                detail['genius_link'] = detail_music['response']['song']['url']
+
+                response = {
+                    'status': status.HTTP_200_OK,
+                    'response': detail
+                }
+                return Response(response, status=status.HTTP_200_OK)
+            else:
+                response = {}
+                response['message'] = "You waistd your time. Re-type the title bro. :)"
+                response['status'] = status.HTTP_404_NOT_FOUND
+                return Response(response, status=status.HTTP_404_NOT_FOUND)
+                
+        except Exception as err:
+            print(err)
+            return Response({'status' : status.HTTP_500_INTERNAL_SERVER_ERROR,'message':'internal error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

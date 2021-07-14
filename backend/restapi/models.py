@@ -9,12 +9,17 @@ class Music(models.Model):
     artist_name = models.CharField(max_length=100, blank=True, default='')
     album_name = models.CharField(max_length=100, blank=True, default='')
     published_year = models.IntegerField(blank=True, default=0)
+    released_date = models.CharField(max_length=10, blank=True, default='')
     duration = models.IntegerField(blank=True, default=0)
     album_cover = models.TextField(blank=True, default='')
     genre = models.JSONField(default={})
     spotify_link = models.TextField(blank=True, default='')
     youtube_link = models.TextField(blank=True, default='')
     soundcloud_link = models.TextField(blank=True, default='')
+    genius_link = models.TextField(blank=True, default='')
+    created_by = models.CharField(max_length=100, blank=True, default='')
+    updated_by = models.CharField(max_length=100, blank=True, default='')
+    moods = models.JSONField(default={})
 
     class Meta:
         ordering = ['created']
@@ -37,6 +42,7 @@ class Movie(models.Model):
     youtube_link = models.TextField(blank=True, default='')
     poster_cover = models.TextField(blank=True, default='')
     backdrop_cover = models.TextField(blank=True, default='')
+    movie_id = models.CharField(max_length=20, blank=True, default='')
     created_by = models.CharField(max_length=100, blank=True, default='')
     updated_by = models.CharField(max_length=100, blank=True, default='')
     moods = models.JSONField(default={})

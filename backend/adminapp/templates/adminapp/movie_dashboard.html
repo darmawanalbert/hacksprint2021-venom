@@ -28,6 +28,7 @@
       </li>
     </ul>
 
+    
   </nav>
   <!-- /.navbar -->
 
@@ -128,89 +129,46 @@
           </div>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                    <th>Title</th>
-                    <th>Overview</th>
-                    <th>Genres</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  
-                  {% for movie in movies %}
-                  <tr>
-                    <td>
-                        {{ movie.title }}<br>
-                        <a href="/admin/movies/?id={{ movie.id }}&action=update">update</a> |
-                        <a href="/admin/movies/?id={{ movie.id }}&action=delete" style="color: red">delete</a>
-                    </td>
-                    <td>{{ movie.overview|slice:"0:100" }}.. <a href="/admin/movies/?id={{ movie.id }}&action=update">read more..</a></td>
-                    <td>
-                      {{ movie.genre|join:', ' }}
-                    </td>
-                  </tr>
-                  {% endfor %}
-                  </tr>
-                </tbody>
-                </table>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <a href="/admin/movies/" class="btn bg-gradient-primary">Add</a>
-          <a href="/admin/dashboard?movie_page={{ movie_previous_page }}" class="btn btn-default">Previous</a>
-          <a href="/admin/dashboard?movie_page={{ movie_next_page }}" class="btn btn-default">Next</a>
-        </div>
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
 
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Musics</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
+          <div class="input-group" style="width: 40%; margin-bottom: 10px;">
+            <form action="/admin/movies-list/" method="get">
+              <input type="search" class="form-control form-control-lg" name="movie_query" placeholder="Type movie title">
+              <button type="submit" class="btn btn-default" style="margin-top: 10px;">Search</button>
+            </form>
           </div>
-        </div>
-        
-        <div class="card-body">
+      
           <table class="table table-bordered">
               <thead>
                   <tr>
                   <th>Title</th>
-                  <th>Singer</th>
-                  <th>Published Year</th>
+                  <th>Overview</th>
+                  <th>Genres</th>
                   </tr>
               </thead>
               <tbody>
                 
-                {% for music in musics %}
+                {% for movie in movies %}
                 <tr>
                   <td>
-                      {{ music.title }}<br>
-                      <a href="/admin/musics/?id={{ music.id }}&action=update">update</a> |
-                      <a href="/admin/musics/?id={{ music.id }}&action=delete" style="color: red">delete</a>
+                      {{ movie.title }}<br>
+                      <a href="/admin/movies/?id={{ movie.id }}&action=update">update</a> |
+                      <a href="/admin/movies/?id={{ movie.id }}&action=delete" style="color: red">delete</a>
                   </td>
-                  <td>{{ music.artist_name }}</td>
-                  <td>{{ music.released_date }}</td>
+                  <td>{{ movie.overview|slice:"0:100" }}.. <a href="/admin/movies/?id={{ movie.id }}&action=update">read more..</a></td>
+                  <td>
+                    {{ movie.genre|join:', ' }}
+                  </td>
                 </tr>
                 {% endfor %}
                 </tr>
               </tbody>
-              </table>
-      </div>
+            </table>
+        </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          <a href="/admin/musics/" class="btn bg-gradient-primary">Add</a>
-          <a href="/admin/dashboard?music_page={{ music_previous_page }}" class="btn btn-default">Previous</a>
-          <a href="/admin/dashboard?music_page={{ music_next_page }}" class="btn btn-default">Next</a>
+          <a href="/admin/movies/" class="btn bg-gradient-primary">Add</a>
+          <a href="/admin/movies-list?movie_page={{ movie_previous_page }}" class="btn btn-default">Previous</a>
+          <a href="/admin/movies-list?movie_page={{ movie_next_page }}" class="btn btn-default">Next</a>
         </div>
         <!-- /.card-footer-->
       </div>
