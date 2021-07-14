@@ -100,6 +100,12 @@ def get_musics(request):
     upper_limit = bottom_limit + 5
     username = get_user(request).username
     musics = Music.objects.values().filter(Q(created_by=username) | Q(updated_by=username)).order_by('-created')
+    
+    query = request.GET.get('music_query', None)
+    if query != None:
+        musics = musics.filter(title__icontains=query)
+
+    musics = musics.order_by('-created')
 
     previous_page = page - 1
     if previous_page < 0:

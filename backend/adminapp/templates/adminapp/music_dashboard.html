@@ -130,6 +130,14 @@
         </div>
         
         <div class="card-body">
+
+          <div class="input-group" style="width: 40%; margin-bottom: 10px;">
+            <form action="/admin/musics-list/" method="get">
+              <input type="search" class="form-control form-control-lg" name="music_query" placeholder="Type music title">
+              <button type="submit" class="btn btn-default" style="margin-top: 10px;">Search</button>
+            </form>
+          </div>
+
           <table class="table table-bordered">
               <thead>
                   <tr>
@@ -158,8 +166,8 @@
         <!-- /.card-body -->
         <div class="card-footer">
           <a href="/admin/musics/" class="btn bg-gradient-primary">Add</a>
-          <a href="/admin/dashboard?music_page={{ music_previous_page }}" class="btn btn-default">Previous</a>
-          <a href="/admin/dashboard?music_page={{ music_next_page }}" class="btn btn-default">Next</a>
+          <a href="/admin/musics-list?music_page={{ music_previous_page }}" class="btn btn-default">Previous</a>
+          <a href="/admin/musics-list?music_page={{ music_next_page }}" class="btn btn-default">Next</a>
         </div>
         <!-- /.card-footer-->
       </div>
@@ -190,7 +198,7 @@
 <!-- Bootstrap 4 -->
 <script src="{% static '/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <!-- AdminLTE App -->
-<script src="{% static '/dist/js/adminlte.min.js'' %}"></script>
+<script src="{% static '/dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static '/dist/js/demo.js' %}"></script>
 </body>
