@@ -49,13 +49,13 @@ function MoodScreen({ route, navigation }) {
                     <LinkButton
                         text="Music Preference"
                         onPress={() => navigation.navigate('MusicPreference')}
-                        style={{ marginBottom: 8 }}
+                        style={{ marginBottom: 8, alignSelf: 'flex-start' }}
                     />
                     <CellItem text="Movie" iconName="film" onPress={() => navigation.navigate('Movie', { mood: mood })} />
                     <LinkButton
                         text="Movie Preference"
                         onPress={() => navigation.navigate('MoviePreference')}
-                        style={{ marginBottom: 8 }}
+                        style={{ marginBottom: 8, alignSelf: 'flex-start' }}
                     />
                 </View>
             </View>

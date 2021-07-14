@@ -18,8 +18,9 @@ import { DotIndicator } from 'react-native-indicators';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getMovies } from './api';
-import Genres from './Genres';
 import colors from '../../utils/colors';
+import TmdbButton from '../TmdbButton';
+import DeeplinkAppButton from '../DeeplinkAppButton';
 
 const { width, height } = Dimensions.get('window');
 const SPACING = 10;
@@ -166,14 +167,27 @@ export default function MovieCarousel({ mood }) {
                                 source={{ uri: item.poster_cover }}
                                 style={styles.posterImage}
                             />
-                            <Text style={{ fontSize: 24 }} numberOfLines={1}>
+                            <Text style={{ fontSize: 24, color: colors.secondary }} numberOfLines={1}>
                                 {item.title}
                             </Text>
-                            <Text>{item.vote_average}</Text>
-                            <Genres genres={item.genre} />
-                            <Text style={{ fontSize: 12 }} numberOfLines={3}>
-                                {item.overview}
-                            </Text>
+                            {
+                                item.movie_id !== ''
+                                ? <TmdbButton movieId={item.movie_id} />
+                                : null
+                            }
+                            <Text style={{ color: colors.secondary }}>Watch on:</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginBottom: 16 }}>
+                                {
+                                    item.netflix_link !== ''
+                                    ? <DeeplinkAppButton appName="netflix" url={item.netflix_link} style={{ marginHorizontal: 8 }} />
+                                    : null
+                                }
+                                {
+                                    item.youtube_link !== ''
+                                    ? <DeeplinkAppButton appName="youtube" url={item.youtube_link} style={{ marginHorizontal: 8 }} />
+                                    : null
+                                }
+                            </View>
                         </Animated.View>
                     </View>
                 );

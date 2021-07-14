@@ -1,5 +1,5 @@
 export { default as DeeplinkAppButton } from './DeeplinkAppButton';
-export { default as DeeplinkWebButton } from './DeeplinkWebButton';
+export { default as TmdbButton } from './TmdbButton';
 export { default as MovieCarousel } from './Carousel/MovieCarousel';
 export { default as Emoji } from './Emoji';
 export { default as StandardButton } from './StandardButton';
