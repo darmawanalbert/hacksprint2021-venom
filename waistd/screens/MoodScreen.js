@@ -31,8 +31,8 @@ function MoodScreen({ route, navigation }) {
             <View>
                 <Text style={styles.heading}>Recommendations</Text>
                 <LinkButton
-                    text="Set Preferences"
-                    onPress={() => navigation.navigate('Preference')}
+                    text="Movie Preference"
+                    onPress={() => navigation.navigate('MoviePreference')}
                     style={{ marginBottom: 8 }}
                 />
                 <CellList navigation={navigation}/>
