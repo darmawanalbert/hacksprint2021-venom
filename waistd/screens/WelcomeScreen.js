@@ -18,11 +18,11 @@ function WelcomeScreen({ navigation }) {
                     text="Detect Mood"
                     onPress={() => navigation.navigate('FrontCamera')}
                 />
-                <LinkButton
+                {/* <LinkButton
                     text="About"
                     onPress={() => navigation.navigate('About')}
                     style={{ marginVertical: 8 }}
-                />
+                /> */}
             </View>
         </View>
     )

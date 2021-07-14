@@ -1,17 +1,16 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-import { RecommendationIndicator, Carousel } from '../components';
+import { MovieCarousel } from '../components';
 import colors from '../utils/colors';
 
-function RecommendationScreen() {
+function MovieScreen({ route }) {
+    const { mood } = route.params;
     return (
         <View style={styles.container}>
-            {/* <Text>Recommendation Screen</Text>
-            <RecommendationIndicator /> */}
-            <Carousel />
             <StatusBar style="auto" />
+            <MovieCarousel mood={mood} />
         </View>
     )
 }
@@ -25,4 +24,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RecommendationScreen;
+export default MovieScreen;

@@ -1,7 +1,21 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Emoji, StandardButton, CellList, LinkButton } from '../components';
+import { Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Emoji, LinkButton } from '../components';
 import colors from '../utils/colors';
+
+function CellItem({ text, iconName, onPress }) {
+    const screenWidth = Dimensions.get('window').width;
+    return (
+        <TouchableOpacity style={[styles.cellItemContainer, { width: 0.8 * screenWidth }]} onPress={onPress}>
+            <View style={styles.textContainer}>
+                <Ionicons name={iconName} size={32} color={colors.whiteSecondary} style={styles.icon} />
+                <Text style={styles.textContent}>{text}</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={32} color={colors.whiteSecondary} />
+        </TouchableOpacity>
+    );
+}
 
 function MoodScreen({ route, navigation }) {
     const { mood } = route.params;
@@ -30,12 +44,20 @@ function MoodScreen({ route, navigation }) {
             </View>
             <View>
                 <Text style={styles.heading}>Recommendations</Text>
-                <LinkButton
-                    text="Set Preferences"
-                    onPress={() => navigation.navigate('Preference')}
-                    style={{ marginBottom: 8 }}
-                />
-                <CellList navigation={navigation}/>
+                <View style={styles.cellList}>
+                    <CellItem text="Music" iconName="musical-notes" onPress={() => navigation.navigate('Music', { mood: mood })}/>
+                    <LinkButton
+                        text="Music Preference"
+                        onPress={() => navigation.navigate('MusicPreference')}
+                        style={{ marginBottom: 8, alignSelf: 'flex-start' }}
+                    />
+                    <CellItem text="Movie" iconName="film" onPress={() => navigation.navigate('Movie', { mood: mood })} />
+                    <LinkButton
+                        text="Movie Preference"
+                        onPress={() => navigation.navigate('MoviePreference')}
+                        style={{ marginBottom: 8, alignSelf: 'flex-start' }}
+                    />
+                </View>
             </View>
         </View>
     );
@@ -70,6 +92,30 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         color: colors.secondary,
         margin: 16
+    },
+    cellList: {
+        marginBottom: 8,
+    },
+    cellItemContainer: {
+        padding: 12,
+        borderRadius: 12,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginVertical: 4,
+        backgroundColor: colors.blueDark,
+    },
+    textContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    textContent: {
+        fontWeight: 'normal',
+        fontSize: 16,
+        color: colors.whiteSecondary
+    },
+    icon: {
+        marginRight: 8,
     }
 });
 
