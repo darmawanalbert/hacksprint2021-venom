@@ -129,6 +129,7 @@ class Genius(APIView):
                 detail['spotify_link'] = self.get_media_link(detail_music['response']['song']['media'],'spotify')
                 detail['youtube_link'] = self.get_media_link(detail_music['response']['song']['media'],'youtube')
                 detail['soundcloud_link'] = self.get_media_link(detail_music['response']['song']['media'],'soundcloud')
+                detail['genius_link'] = detail_music['response']['song']['url']
 
                 response = {
                     'status': status.HTTP_200_OK,

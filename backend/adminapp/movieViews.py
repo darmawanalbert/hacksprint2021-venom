@@ -79,6 +79,7 @@ def index(request):
                 poster_cover=request.POST.get("poster_cover",""),
                 backdrop_cover=request.POST.get("backdrop_cover",""),
                 genre=genre,
+                movie_id=request.POST.get("movie_id",""),
                 netflix_link=request.POST.get("netflix_link",""),
                 youtube_link=request.POST.get("youtube_link",""),
                 moods=moods,
@@ -102,6 +103,7 @@ def index(request):
             movie.netflix_link=request.POST.get("netflix_link","")
             movie.youtube_link=request.POST.get("youtube_link","")
             movie.moods = moods
+            movie.movie_id = request.POST.get("movie_id","")
             movie.updated_by = get_user(request).username
             movie.save()
             return redirect('/admin/movies?id=' + id + '&action=update')

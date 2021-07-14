@@ -88,6 +88,7 @@ class Movies(APIView):
                 filters = request.GET.get('moods', None)
                 movies = self.get_filter_by_mood(movies, filters.lower().split(","))
 
+            count_all = len(movies)
             movies = movies[bottom_limit:upper_limit]
 
             previous_page = page - 1
@@ -96,7 +97,7 @@ class Movies(APIView):
 
             response = {
                 'status' : status.HTTP_200_OK,
-                'count_all': len(movies),
+                'count_all': count_all,
                 'next_page': '?=page' + str(page + 1),
                 'previous_page' : '?=page' + str(previous_page),
                 'data' : movies
@@ -180,8 +181,8 @@ class Musics(APIView):
         r_music = []
         for music in musics:
             for filter in filters:
-                if musics['moods'][filter] == "on":
-                    r_music.append(musics)
+                if music['moods'][filter] == "on":
+                    r_music.append(music)
         return r_music
 
     def get_query_number(self, number):
@@ -216,6 +217,7 @@ class Musics(APIView):
                 filters = request.GET.get('moods', None)
                 musics = self.get_filter_by_mood(musics, filters.lower().split(","))
 
+            count_all = len(musics)
             musics = musics[bottom_limit:upper_limit]
 
             previous_page = page - 1
@@ -223,6 +225,9 @@ class Musics(APIView):
                 previous_page = 0
 
             response = {
+                'count_all': count_all,
+                'next_page': '?=page' + str(page + 1),
+                'previous_page' : '?=page' + str(previous_page),
                 'status' : status.HTTP_200_OK,
                 'data' : musics
             }

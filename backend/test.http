@@ -31,3 +31,6 @@ Content-Type: application/json
     "image_base_data": "",
     "audio_base_data":""
 }
+
+### 
+GET http://localhost:8080/api/movies/

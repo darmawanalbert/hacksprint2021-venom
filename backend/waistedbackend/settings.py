@@ -170,7 +170,7 @@ GENIUS_CONFIGS = {
     "bearer_auth": "jzqBmW-EV6ZhsysReaaV32rITcbEHZjFegiqm8oVUHL9Olsf8j6QKe9gp8vYxyha"
 }
 
-MUSIC_GENRES = ["pop","rock","metal","jazz","classical","hip hop","country","electronic","lo-fi","acoustic"]
+MUSIC_GENRES = ["pop","rock","metal","jazz","classical","hiphop","country","electronic","lofi","acoustic"]
 
 # Azure key
 KEY_COG = "e43e3cc65eb7459abc05b13e6d1b15ec"
