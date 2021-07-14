@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title style = "text-transform:capitalize;">Waistd | Music</title>
+  <title style = "text-transform:capitalize;">Waistd | Movie</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -133,6 +133,7 @@
             <div class="card-body">
                 <input type="hidden" value="{{ action }}" name="action" />
                 <input type="hidden" value="{{ movie.id }}" name="id" />
+                <input type="hidden" id="inputMovieId" value="{{ movie.movie_id }}" name="movie_id" />
                 <div class="form-group">
                     <label for="inputTitle">Title</label>
                     <input type="text" class="form-control" id="inputTitle" name="title" value="{{ movie.title }}" placeholder="e.g My title movie">
@@ -298,6 +299,7 @@
             $("#inputOverview").val(response.movie.overview)
             $("#inputVoteAverage").val(response.movie.vote_average)
             $("#inputReleasedDate").val(response.movie.release_date)
+            $("#inputMovieId").val(response.movie.id)
 
             $("#inputRawData").val(response.movie)
           } else {

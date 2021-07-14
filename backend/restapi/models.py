@@ -41,6 +41,7 @@ class Movie(models.Model):
     youtube_link = models.TextField(blank=True, default='')
     poster_cover = models.TextField(blank=True, default='')
     backdrop_cover = models.TextField(blank=True, default='')
+    movie_id = models.CharField(max_length=20, blank=True, default='')
     created_by = models.CharField(max_length=100, blank=True, default='')
     updated_by = models.CharField(max_length=100, blank=True, default='')
     moods = models.JSONField(default={})
