@@ -223,6 +223,9 @@ class Musics(APIView):
                 previous_page = 0
 
             response = {
+                'count_all': len(musics),
+                'next_page': '?=page' + str(page + 1),
+                'previous_page' : '?=page' + str(previous_page),
                 'status' : status.HTTP_200_OK,
                 'data' : musics
             }
