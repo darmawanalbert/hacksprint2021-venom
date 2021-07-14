@@ -27,7 +27,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.darmawanalbert.waistd",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": ["CAMERA", "RECORD_AUDIO"]
     },
     "web": {

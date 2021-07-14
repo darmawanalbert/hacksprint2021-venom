@@ -1,6 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
+import { Linking, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import colors from '../utils/colors';
@@ -35,7 +34,7 @@ function DeeplinkAppButton({ appName, url, style = {} }) {
     }
 
     const handleDeeplink = () => {
-        WebBrowser.openBrowserAsync(url);
+        Linking.openURL(url);
     }
 
     return (
