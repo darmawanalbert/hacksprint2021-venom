@@ -161,3 +161,11 @@ GENIUS_CONFIGS = {
     "base_url": "https://api.genius.com",
     "bearer_auth": "jzqBmW-EV6ZhsysReaaV32rITcbEHZjFegiqm8oVUHL9Olsf8j6QKe9gp8vYxyha"
 }
+
+# Azure key
+KEY_COG = "e43e3cc65eb7459abc05b13e6d1b15ec"
+ENDPOINT_COG = "https://venom-cognitive.cognitiveservices.azure.com/"
+REGION_COG = 'australiaeast'
+
+# Paralleldots key
+KEY_PARALLELDOTS = "JLWHsjG95rh3z34b0H5w5yGxMCoZBHHdLn6YL5Rth1Q"
