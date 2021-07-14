@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking, TouchableOpacity } from 'react-native';
+import { Linking, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import colors from '../utils/colors';
@@ -38,10 +38,17 @@ function DeeplinkAppButton({ appName, url, style = {} }) {
     }
 
     return (
-        <TouchableOpacity onPress={handleDeeplink} style={style}>
-            <MaterialCommunityIcons name={appName} size={36} color={colors.secondary} />
+        <TouchableOpacity onPress={handleDeeplink} style={[styles.container, {...style}]}>
+            <MaterialCommunityIcons name={appName} size={48} color={colors.secondary} />
         </TouchableOpacity>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: 8,
+        paddingVertical: 4
+    }
+});
 
 export default DeeplinkAppButton;
