@@ -168,21 +168,21 @@ class Movies(APIView):
 
 class Musics(APIView):
 
-    def get_filter_by_genre(self, movies, filters):
-        r_movie = []
-        for movie in movies:
-            for genre in movie['genre']:
+    def get_filter_by_genre(self, musics, filters):
+        r_music = []
+        for music in musics:
+            for genre in music['genre']:
                 if genre.lower() in filters:
-                    r_movie.append(movie)
-        return r_movie
+                    r_music.append(music)
+        return r_music
     
-    def get_filter_by_mood(self, movies, filters):
-        r_movie = []
-        for movie in movies:
+    def get_filter_by_mood(self, musics, filters):
+        r_music = []
+        for music in musics:
             for filter in filters:
-                if movie['moods'][filter] == "on":
-                    r_movie.append(movie)
-        return r_movie
+                if musics['moods'][filter] == "on":
+                    r_music.append(musics)
+        return r_music
 
     def get_query_number(self, number):
         try:

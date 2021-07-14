@@ -75,8 +75,14 @@ def get_movies(request):
         bottom_limit = 0
     upper_limit = bottom_limit + 5
     username = get_user(request).username
-    movies = Movie.objects.values().filter(Q(created_by=username) | Q(updated_by=username)).order_by('-created')
+    movies = Movie.objects.values().filter(Q(created_by=username) | Q(updated_by=username))
+    
+    query = request.GET.get('movie_query', None)
+    if query != None:
+        movies = movies.filter(title__icontains=query)
 
+    movies = movies.order_by('-created')
+    
     previous_page = page - 1
     if previous_page < 0:
         previous_page = 0
@@ -106,6 +112,53 @@ def get_user(request):
     user_id = int(request.session['user_id'])
     return User.objects.get(id=user_id)
 
+def movie_dashboard(request):
+    if request.method == 'GET':
+        if 'is_login' in request.session and request.session['is_login'] != None:
+            movies = Movie.objects.values()
+            
+            username = get_user(request)
+
+            movies, movie_next_page = get_movies(request)
+
+            movie_previous_page = movie_next_page - 2
+            if movie_previous_page < 0:
+                movie_previous_page = 0
+        
+
+            context = {
+                'movies': movies,
+                'movie_next_page' : movie_next_page,
+                'movie_previous_page': movie_previous_page,
+                'username': username,
+            }
+            return render(request,"adminapp/movie_dashboard.html", context=context)
+        else: 
+            return redirect('/')
+
+def music_dashboard(request):
+    if request.method == 'GET':
+
+        if 'is_login' in request.session and request.session['is_login'] != None:
+            musics = Music.objects.values()
+            
+            username = get_user(request)
+
+            musics, music_next_page = get_musics(request)
+
+            music_previous_page = music_next_page - 2
+            if music_previous_page < 0:
+                music_previous_page = 0
+
+            context = {
+                'music_next_page' : music_next_page,
+                'music_previous_page': music_previous_page,
+                'username': username,
+                'musics' : musics
+            }
+            return render(request,"adminapp/music_dashboard.html", context=context)
+        else: 
+            return redirect('/')
 
 def dashboard(request):
     if request.method == 'GET':
