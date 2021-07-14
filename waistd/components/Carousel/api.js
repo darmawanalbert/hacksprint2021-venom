@@ -17,3 +17,20 @@ export const getMovies = async (mood, genreList = []) => {
 		return [];
 	}
 };
+
+export const getMusic = async (mood, genreList = []) => {
+	let url = API_URL + '/musics/?moods=' + mood;
+	const genreString = genreList.reduce((acc, value) => (acc + value.toLowerCase() + ','), '');
+	const genreParam = genreString.slice(0,-1);
+	if (genreParam !== '') {
+		url = url + '&genres='+ genreParam;
+	}
+	console.log('Get music URL: ', url);
+	try {
+		const response = await axios.get(url);
+		return response.data.data;
+	} catch (err) {
+		console.log(err);
+		return [];
+	}
+};

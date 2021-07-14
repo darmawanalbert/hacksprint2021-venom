@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet } from 'react-native';
 
-import { MovieCarousel } from '../components';
+import { MusicCarousel } from '../components';
 import colors from '../utils/colors';
 
 function MusicScreen({ route }) {
@@ -10,7 +10,7 @@ function MusicScreen({ route }) {
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
-            <MovieCarousel mood={mood} />
+            <MusicCarousel mood={mood} />
         </View>
     )
 }

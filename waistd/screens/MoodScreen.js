@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Emoji, StandardButton, LinkButton } from '../components';
+import { Emoji, LinkButton } from '../components';
 import colors from '../utils/colors';
 
 function CellItem({ text, iconName, onPress }) {

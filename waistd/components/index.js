@@ -1,6 +1,8 @@
 export { default as DeeplinkAppButton } from './DeeplinkAppButton';
 export { default as TmdbButton } from './TmdbButton';
+export { default as GeniusButton } from './GeniusButton';
 export { default as MovieCarousel } from './Carousel/MovieCarousel';
+export { default as MusicCarousel } from './Carousel/MusicCarousel';
 export { default as Emoji } from './Emoji';
 export { default as StandardButton } from './StandardButton';
 export { default as AudioRecordIndicator } from './AudioRecordIndicator';
