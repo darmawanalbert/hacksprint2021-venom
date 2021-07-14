@@ -168,7 +168,7 @@
                   <tr>
                   <th>Title</th>
                   <th>Singer</th>
-                  <th style="width: 40px">Published Year</th>
+                  <th>Published Year</th>
                   </tr>
               </thead>
               <tbody>
@@ -181,7 +181,7 @@
                       <a href="/admin/musics/?id={{ music.id }}&action=delete" style="color: red">delete</a>
                   </td>
                   <td>{{ music.artist_name }}</td>
-                  <td>{{ music.published_year }}</td>
+                  <td>{{ music.released_date }}</td>
                 </tr>
                 {% endfor %}
                 </tr>

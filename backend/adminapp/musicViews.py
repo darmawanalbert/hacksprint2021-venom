@@ -15,10 +15,14 @@ def split_by_comma(str):
     else:
         return []
 
+def get_user(request):
+    user_id = int(request.session['user_id'])
+    return User.objects.get(id=user_id)
+
 def index(request):
     if request.method == 'GET':
         if request.GET.get("action", None) == None:
-            context = { 'action': 'add' }
+            context = { 'action': 'add',  'username': get_user(request) }
             return render(request,"adminapp/music_add_or_update.html", context=context)
         elif request.GET.get("action", None) == "delete":
             id = request.GET.get("id", None)
@@ -31,7 +35,7 @@ def index(request):
         elif request.GET.get("action", None) == "update":
             id = request.GET.get("id", None)
             music = Music.objects.get(id=id)
-            context = { 'music' : model_to_dict(music), 'action': 'update' }
+            context = { 'music' : model_to_dict(music), 'action': 'update',  'username': get_user(request) }
             return render(request,"adminapp/music_add_or_update.html", context=context)
 
     elif request.method == 'POST':
@@ -54,13 +58,18 @@ def index(request):
 
         if request.POST.get("action","") == "add":
             id = uuid.uuid4()
+
+            duration = 0
+            if request.POST.get("duration",0) != '':
+                duration = request.POST.get("duration",0)
+
             music = Music(
                 id = id,
                 title = request.POST.get("title",""),
                 artist_name = request.POST.get("artist_name",""),
                 album_name = request.POST.get("album_name",""),
-                published_year = request.POST.get("published_year",0),
-                duration = request.POST.get("duration",0),
+                released_date = request.POST.get("released_date",""),
+                duration = duration,
                 album_cover = request.POST.get("album_cover",""),
                 genre = genre,
                 spotify_link = request.POST.get("spotify_link",""),
@@ -72,13 +81,18 @@ def index(request):
             return redirect('/admin/dashboard')
         
         elif request.POST.get("action","") == "update":
+
+            duration = 0
+            if request.POST.get("duration",0) != '':
+                duration = request.POST.get("duration",0)
+
             id = request.POST.get("id", None)
             music = Music.objects.get(id=id)
             music.title = request.POST.get("title","")
             music.artist_name = request.POST.get("artist_name","")
             music.album_name = request.POST.get("album_name","")
-            music.published_year = request.POST.get("published_year",0)
-            music.duration = request.POST.get("duration",0)
+            music.released_date = request.POST.get("released_date",0)
+            music.duration = duration
             music.album_cover = request.POST.get("album_cover","")
             music.genre = genre
             music.spotify_link = request.POST.get("spotify_link","")

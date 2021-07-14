@@ -9,6 +9,7 @@ class Music(models.Model):
     artist_name = models.CharField(max_length=100, blank=True, default='')
     album_name = models.CharField(max_length=100, blank=True, default='')
     published_year = models.IntegerField(blank=True, default=0)
+    released_date = models.CharField(max_length=10, blank=True, default='')
     duration = models.IntegerField(blank=True, default=0)
     album_cover = models.TextField(blank=True, default='')
     genre = models.JSONField(default={})

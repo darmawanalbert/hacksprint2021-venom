@@ -50,14 +50,22 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
-              
+              Hi, {{ username }} !
           </a>
         </div>
       </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="/admin/logout/" class="nav-link">
+              <p>
+                Logout
+              </p>
+            </a>
+          </li>
+        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -75,8 +83,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="/admin/dashboard/">Home</a></li>
+              <li class="breadcrumb-item active" style = "text-transform:capitalize;">{{ action }}</li>
             </ol>
           </div>
         </div>
@@ -108,6 +116,7 @@
                     <label for="inputTitle">Title</label>
                     <input type="text" class="form-control" id="inputTitle" name="title" value="{{ music.title }}" placeholder="e.g Never Gonna Give You Up">
                     <br>
+                    <button type="button" id="inquiryGenius" class="btn bg-gradient-primary" >Inquiry to Genius</button>
                 </div>
                 <div class="form-group">
                     <label for="inputArtistName">Artist Name</label>
@@ -118,8 +127,8 @@
                     <input type="text" class="form-control" id="inputAlbumName" name="album_name" value="{{ music.album_name }}" placeholder="e.g PepeSadAlbum">
                 </div>
                 <div class="form-group">
-                    <label for="inputPublishedYear">Published Year</label>
-                    <input type="text" class="form-control" id="inputPublishedYear" name="published_year" value="{{ music.published_year }}" placeholder="e.g 1991">
+                    <label for="inputReleasedDate">Released Date</label>
+                    <input type="text" class="form-control" id="inputReleasedDate" name="released_date" value="{{ music.released_date }}" placeholder="e.g yyyy-mm-dd">
                 </div>
                 <div class="form-group">
                     <label for="inputDuration">Duration</label>
@@ -136,7 +145,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputSpotifyLink">Spotify Link</label>
-                    <input type="text" class="form-control" id="inputSpotifyLink" name="spotify_link" value="{{ music.netflix_link }}" placeholder="e.g https://spotify.com/">
+                    <input type="text" class="form-control" id="inputSpotifyLink" name="spotify_link" value="{{ music.spotify_link }}" placeholder="e.g https://spotify.com/">
                 </div>
                 <div class="form-group">
                     <label for="inputYoutubeLink">Youtube Link</label>
@@ -144,7 +153,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputSoundCloudLink">SoundCloud Link</label>
-                    <input type="text" class="form-control" id="inputSoundCloudLink" name="soundcloud_link" value="{{ music.youtube_link }}" placeholder="e.g https://soundcloud.com/">
+                    <input type="text" class="form-control" id="inputSoundCloudLink" name="soundcloud_link" value="{{ music.soudcloud_link }}" placeholder="e.g https://soundcloud.com/">
                 </div>
                 <!-- /.card-body -->
                 <div class="form-check">
@@ -175,6 +184,9 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <button type="submit" class="btn bg-gradient-primary">{{ action }}</button>
+                {% if action == 'update' %}
+                <a href="/admin/musics/" class="btn btn-default" style = "text-transform:capitalize;">Add New</a>
+                {% endif %}
             </div>
             <!-- /.card-footer-->
         </form>
@@ -211,5 +223,59 @@
 <script src="{% static '/dist/js/adminlte.min.js'' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static '/dist/js/demo.js' %}"></script>
+<script>
+  $(function(){
+    $("#inquiryGenius").click(function(){
+
+      query = $("#inputTitle").val()
+      $("#inquiryGenius").attr('disabled',true)
+      $("#inquiryGenius").text('loading..')
+
+      if(query == ""){
+        alert("Title is mandatory.")
+        $("#inquiryGenius").attr('disabled',false)
+        $("#inquiryGenius").text('Inquiry to Genius')
+      }
+      else{
+        fetch(location.protocol + '//' + location.host + "/api/genius/?query=" + query)
+        .then((resp) => resp.json())
+        .then(function(response){
+
+          if(response.status == 200){
+            $("#inputTitle").val(response.response.title)
+            $("#inputArtistName").val(response.response.artist_name)
+            $("#inputAlbumName").val(response.response.album_name)
+            $("#inputReleasedDate").val(response.response.published_year)
+            $("#inputAlbumCover").val(response.response.album_cover)
+            
+            if(Object.keys(response.response.spotify_link).length != 0){
+              $("#inputSpotifyLink").val(response.response.spotify_link.url)
+            }
+
+            if(Object.keys(response.response.youtube_link).length != 0){
+              $("#inputYoutubeLink").val(response.response.youtube_link.url)
+            }
+
+            if(Object.keys(response.response.soundcloud_link).length != 0){
+              $("#inputSoundCloudLink").val(response.response.soundcloud_link.url)
+            }
+            
+          } else {
+            alert(response.message)
+          }
+          
+          $("#inquiryGenius").attr('disabled',false)
+          $("#inquiryGenius").text('Inquiry to Genius')
+        }).catch(function(error){
+          console.log(error)
+
+          $("#inquiryGenius").attr('disabled',false)
+          $("#inquiryGenius").text('Inquiry to Genius')
+        })
+      }
+      
+    })
+  })
+</script>
 </body>
 </html>
