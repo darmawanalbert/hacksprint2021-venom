@@ -45,7 +45,7 @@ function MoodScreen({ route, navigation }) {
             <View>
                 <Text style={styles.heading}>Recommendations</Text>
                 <View style={styles.cellList}>
-                    <CellItem text="Music" iconName="musical-notes" onPress={() => navigation.navigate('Movie', { mood: mood })}/>
+                    <CellItem text="Music" iconName="musical-notes" onPress={() => navigation.navigate('Music', { mood: mood })}/>
                     <LinkButton
                         text="Music Preference"
                         onPress={() => navigation.navigate('MusicPreference')}

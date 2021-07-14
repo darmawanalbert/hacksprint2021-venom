@@ -5,7 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import { MovieCarousel } from '../components';
 import colors from '../utils/colors';
 
-function MovieScreen({ route }) {
+function MusicScreen({ route }) {
     const { mood } = route.params;
     return (
         <View style={styles.container}>
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default MovieScreen;
+export default MusicScreen;
