@@ -11,11 +11,8 @@ USER app
 EXPOSE 8080
 
 USER root
-RUN apt-get install ppa-purge
-RUN ppa-purge ppa:mc3man/trusty-media  
-RUN add-apt-repository ppa:mc3man/trusty-media
-RUN apt-get update
-RUN apt-get dist-upgrade
-RUN apt-get --assume-yes install ffmpeg
+RUN sed -i "s/httpredir.debian.org/debian.uchicago.edu/" /etc/apt/sources.list && \
+    apt-get update
+RUN apt-get install -y ffmpeg
 
 CMD python manage.py runserver 0.0.0.0:8080
