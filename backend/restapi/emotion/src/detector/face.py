@@ -1,9 +1,7 @@
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
+from django.conf import settings
 
-# key and endpoint
-KEY = '72dafe0b8d69431e8e8457c9443cecf9'
-ENDPOINT = 'https://hack-sprint-faceapi.cognitiveservices.azure.com/' 
 
 def create_face_detection_client(key_api,endpoint_api):
     """
@@ -25,16 +23,20 @@ def extract_emotion(image_path):
         emotion_feature = extract_emotion("image.jpg")
     """
     attributes = ['emotion']
-    face_client = create_face_detection_client(KEY,ENDPOINT)
+    face_client = create_face_detection_client(settings.KEY_COG,settings.ENDPOINT_COG)
     detected_faces = face_client.face.detect_with_stream(image=get_image(image_path), return_face_attributes=attributes)
     for face_result in detected_faces:
         emotion_result = face_result.face_attributes.as_dict()
-    return emotion_result['emotion']
+    if len(detected_faces) > 0:
+        return emotion_result['emotion']
+    else:
+        return {"anger": 0, "fear":0, "happiness":0, "sadness":0, "disgust":0,"contempt":0, "surprise":0, "neutral":0}
 
 def map_to_standard_emotion(probability):
     standard_result = {"anger": 0, "fear":0, "happiness":0, "sadness":0}
-    standard_result["sadness"] = probability["sadness"] + probability["disgust"]
-    standard_result["anger"] = probability["anger"] + probability["contempt"]
-    standard_result["fear"] = probability["fear"]
-    standard_result["happiness"] = probability["happiness"] + probability["neutral"] + probability["surprise"]
+    neutral_addition =  probability["neutral"] / 4
+    standard_result["sadness"] = probability["sadness"] + probability["disgust"] + neutral_addition
+    standard_result["anger"] = probability["anger"] + probability["contempt"] + neutral_addition
+    standard_result["fear"] = probability["fear"] + neutral_addition
+    standard_result["happiness"] = probability["happiness"]+ probability["surprise"] + neutral_addition
     return standard_result
